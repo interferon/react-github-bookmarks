@@ -10,7 +10,7 @@ module.exports = (environment) => {
 
   let config = {
     context: path.resolve(__dirname, './src'),
-    entry: './index.js',
+    entry: './index.ts',
     output: {
       path: path.resolve(__dirname, OUTPUT_PATH),
       filename: '[name].[hash:8].js'
@@ -19,12 +19,27 @@ module.exports = (environment) => {
       alias: {
         config: path.resolve(__dirname, './src', './environments', `${environment}.js`)
       },
-      extensions: [ '.js', '.json', '.jsx' ]
+      extensions: [ '.js', '.json', '.jsx', '.ts', '.tsx']
     },
     mode: environment,
     devtool: 'eval-source-map',
     module: {
       rules: [
+        {
+          test: /\.tsx?$/,
+          use: [
+                {
+                    loader: 'babel-loader'
+                },
+                {
+                    loader: 'awesome-typescript-loader',
+                    options : {
+                        useCache: true,
+                        forceIsolatedModules: true
+                    }
+                }
+            ]
+        },
         {
           exclude: /node_modules/,
           test: /\.js$/,

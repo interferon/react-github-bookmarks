@@ -5,7 +5,7 @@ import thunk from 'redux-thunk'
 import promise from 'redux-promise'
 import { Iterable } from 'immutable'
 
-const error = (store) => (next) => (action) => {
+const error = (store: any) => (next: any) => (action: any) => {
   if (action.error) {
     console.error(`An error occured in action ${action.type}!`, {
       error: action.payload,

@@ -1,0 +1,29 @@
+{
+
+    "compilerOptions": {
+        "allowSyntheticDefaultImports": true,
+        "target": "es6",
+        "outDir" : "./public",
+        "jsx" : "react",
+        "noImplicitAny" : true,
+        "moduleResolution": "node",
+        "allowJs": false,
+        "baseUrl": ".",
+        "paths": {
+            "*": [
+                "*"
+            ]
+        },
+        "noUnusedLocals": false,
+        "strict": true,
+        "strictNullChecks": true,
+        "disableSizeLimit": true
+    },
+
+    "compileOnSave": false,
+
+    "exclude": [
+        "node_modules",
+        "public"
+    ]
+}

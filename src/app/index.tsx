@@ -16,9 +16,14 @@ class Application extends React.PureComponent {
         <Router>
           <Switch>
             {
-              routes.map((route, i) => {
-                return <Route key={i} path={route.path} component={route.component} />
-              })
+              routes.map(
+                (route, i) =>
+                  <Route
+                    key={i}
+                    path={route.path}
+                    component={route.component}
+                  />
+              )
             }
             <Redirect key={-1} to='/browse' />
           </Switch>
@@ -29,4 +34,6 @@ class Application extends React.PureComponent {
 }
 
 ReactDOM.render(
-  <Application />, (document.getElementById('root')))
+  <Application/>,
+  document.getElementById('root')
+)

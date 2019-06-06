@@ -18,6 +18,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/react-redux": "^7.0.9",
+    "@types/redux-logger": "^3.0.7",
+    "@types/redux-promise": "^0.5.28",
+    "awesome-typescript-loader": "^5.2.1",
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "immutable": "^3.8.2",
@@ -37,6 +41,11 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.6",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-router-dom": "^4.3.3",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^22.4.3",
@@ -73,6 +82,7 @@
     "standard-flow": "^1.0.0",
     "standard-react": "^4.0.0",
     "style-loader": "^0.21.0",
+    "typescript": "^3.5.1",
     "url-loader": "^1.0.1",
     "webpack": "^4.6.0",
     "webpack-bundle-analyzer": "^2.11.1",
