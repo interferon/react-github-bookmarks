@@ -10,7 +10,7 @@ module.exports = (environment) => {
 
   let config = {
     context: path.resolve(__dirname, './src'),
-    entry: './index.ts',
+    entry: './app/index.tsx',
     output: {
       path: path.resolve(__dirname, OUTPUT_PATH),
       filename: '[name].[hash:8].js'
@@ -68,6 +68,7 @@ module.exports = (environment) => {
           exclude: [
             /\.html$/,
             /\.(js|jsx)$/,
+            /\.(ts|tsx)$/,
             /\.css$/,
             /\.json$/,
             /\.svg$/
