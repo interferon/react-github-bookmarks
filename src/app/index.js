@@ -9,7 +9,7 @@ import { routes } from './routes'
 
 import './global'
 
-class Application extends React.PureComponent<{||}> {
+class Application extends React.PureComponent {
   render () {
     return (
       <Provider store={store}>
@@ -29,4 +29,4 @@ class Application extends React.PureComponent<{||}> {
 }
 
 ReactDOM.render(
-  <Application />, (document.getElementById('root'): any))
+  <Application />, (document.getElementById('root')))
