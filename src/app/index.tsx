@@ -31,9 +31,9 @@ class Application extends React.PureComponent {
       </Provider>
     )
   }
-}
+};
 
 ReactDOM.render(
   <Application/>,
   document.getElementById('root')
-)
+);

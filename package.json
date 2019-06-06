@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/react-redux": "^7.0.9",
+    "@types/redux-immutable": "^4.0.1",
     "@types/redux-logger": "^3.0.7",
     "@types/redux-promise": "^0.5.28",
     "awesome-typescript-loader": "^5.2.1",

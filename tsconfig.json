@@ -1,11 +1,10 @@
 {
-
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "target": "es6",
-        "outDir" : "./public",
-        "jsx" : "react",
-        "noImplicitAny" : true,
+        "outDir": "./public",
+        "jsx": "react",
+        "noImplicitAny": true,
         "moduleResolution": "node",
         "allowJs": false,
         "baseUrl": ".",
@@ -17,13 +16,14 @@
         "noUnusedLocals": false,
         "strict": true,
         "strictNullChecks": true,
-        "disableSizeLimit": true
+        "disableSizeLimit": true,
+        "skipLibCheck": true
     },
-
     "compileOnSave": false,
-
+    "include": [
+        "src"
+    ],
     "exclude": [
-        "node_modules",
-        "public"
+        "node_modules"
     ]
 }
