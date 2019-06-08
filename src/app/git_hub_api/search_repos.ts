@@ -8,7 +8,7 @@ type GitHubSearchResp = {
   items: GithubRepo[];
 }
 
-type GithubRepo = {
+export type GithubRepo = {
   id: number;
   node_id: string;
   name: string;

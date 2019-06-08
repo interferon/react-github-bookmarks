@@ -1,20 +1,25 @@
 import React from 'react'
+import styled from 'styled-components';
+import { PlusIcon } from '../icons/PlusIcon';
+import { Board } from '../board/Boards';
+import { Unpacked } from 'src/app/helpers/typings';
 
-
-export type Item = {
-    id: string,
-    label : string
-}
+type Item = Unpacked<Board['items']>;
 
 type DropDownProps = {
-    items: Item[]
+    items: Item[],
+    on_add_to_board: (item: Item) => void
 }
 
-export const DropDown  = (props: DropDownProps) : JSX.Element =>  {
+export const SearchResult  = (props: DropDownProps) : JSX.Element =>  {
     const renderItem = (item: Item, index: number) => {
-        return <div key={index}>{item.label}</div>
+        return <div key={index}>
+            <label>
+                {item.name}
+            </label>
+            <PlusIcon id={`${item.id}`} on_click={() => props.on_add_to_board(item)}/>
+        </div>
     };
-    console.log(props, "DROPDOWN")
     return <div>
         <h3>DropDown</h3>
         {
