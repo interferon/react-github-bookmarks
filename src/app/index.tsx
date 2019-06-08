@@ -25,7 +25,7 @@ class Application extends React.PureComponent {
                   />
               )
             }
-            <Redirect key={-1} to='/browse' />
+            <Redirect key={-1} to='/boards' />
           </Switch>
         </Router>
       </Provider>

@@ -32,7 +32,6 @@ const initialBookmarkState : BookmarkState = {
     
 };
 
-
 export const reducer = (state: BookmarkState = initialBookmarkState, action: BookmarksActions): BookmarkState => {
     switch (action.type) {
         case 'SHOW_REPOS':
