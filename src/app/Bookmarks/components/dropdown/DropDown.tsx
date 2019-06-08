@@ -1,15 +1,24 @@
 import React from 'react'
 
-type DropDownProps = {
-    
+
+export type Item = {
+    id: string,
+    label : string
 }
 
-export default class DropDown extends React.Component<DropDownProps> {
-    render() {
-        return (
-            <div>
-                drop down
-            </div>
-        );
-    }
+type DropDownProps = {
+    items: Item[]
+}
+
+export const DropDown  = (props: DropDownProps) : JSX.Element =>  {
+    const renderItem = (item: Item, index: number) => {
+        return <div key={index}>{item.label}</div>
+    };
+    console.log(props, "DROPDOWN")
+    return <div>
+        <h3>DropDown</h3>
+        {
+            props.items.map(renderItem)
+        }
+    </div>
 }

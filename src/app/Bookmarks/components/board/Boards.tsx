@@ -8,7 +8,7 @@ export default class Boards extends React.Component<BoardsProps> {
     render() {
         return (
             <div>
-                board
+                <h3>Boards</h3>
             </div>
         );
     }

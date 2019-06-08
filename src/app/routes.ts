@@ -7,7 +7,7 @@ export const routes = [
     component: Home
   },
   {
-    path: '/board',
+    path: '/board', 
     component: App
   }
 ]

@@ -1,9 +1,9 @@
 // @flow
-import { createStore } from 'redux'
+import { createStore } from 'redux';
+import { middleware } from './middleware';
+import { reducer } from './reducer';
 
-import { middleware } from './middleware'
-import { reducer } from './reducer'
 
-export const store = createStore(reducer, middleware)
+export const store = createStore(reducer, middleware);
 // @ts-ignore
 window.store = store

@@ -1,0 +1,1 @@
+export const update = <T>(a: T, b: Partial<T>): T => Object.assign<T, Partial<T>>(Object.assign({}, a), b);
