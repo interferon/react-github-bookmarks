@@ -11,7 +11,7 @@ export default class SearchBar extends React.Component<SearchBarProps> {
                 <input placeholder="Search" onChange={
                     (e) => {
                         const text = e.target.value;
-                        text.length >= 2 && this.props.on_search(text);
+                        this.props.on_search(text);
                     }
                 }/>
             </div>

@@ -89,7 +89,12 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                                 boards: state.boards_settings.boards.concat(action.board),
                                 new_board_name: ''
                             }
-                        )
+                        ),
+                    operation: {
+                        message: '',
+                        state: 'success',
+                        type: 'add_new_board'
+                    }
                 }
             );
         case 'SET_NEW_BOARD_NAME':

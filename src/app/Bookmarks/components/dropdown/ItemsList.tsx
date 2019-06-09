@@ -6,12 +6,12 @@ import { Unpacked } from 'src/app/helpers/typings';
 
 type Item = Unpacked<Board['items']>;
 
-type DropDownProps = {
+type ItemsListProps = {
     items: Item[],
     on_add_to_board: (item: Item) => void
 }
 
-export const SearchResult  = (props: DropDownProps) : JSX.Element =>  {
+export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
     const renderItem = (item: Item, index: number) => {
         return <SearchItem key={index}>
             <label>
@@ -21,7 +21,7 @@ export const SearchResult  = (props: DropDownProps) : JSX.Element =>  {
         </SearchItem>
     };
     return <div>
-        <h3>DropDown</h3>
+        <h3>Search Items List</h3>
         {
             props.items.map(renderItem)
         }

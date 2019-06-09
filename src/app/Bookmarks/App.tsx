@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as all_actions from '../actions';
 import { debounce } from '../helpers/debounce';
 import { BookmarkState } from '../reducer';
-import { SearchResult } from './components/dropdown/DropDown';
+import { ItemsList } from './components/dropdown/ItemsList';
 import { Message } from './components/Message';
 import SearchBar from './components/search_bar/SearchBar';
 import { Boards } from './components/board/Boards';
@@ -30,7 +30,7 @@ class App extends React.Component<AppProps> {
                 {
                     this.props.operation.state === 'in_progress'
                         ? "Loading..."
-                        : <SearchResult
+                        : <ItemsList
                             items={items}
                             on_add_to_board={
                                 (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
