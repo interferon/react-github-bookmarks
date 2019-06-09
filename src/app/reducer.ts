@@ -12,7 +12,7 @@ export type BookmarkState = {
     search_query: string,
     items: Unpacked<Board['items']>[];
     operation: {
-        type: "search" | "none"
+        type: "search" | "add_new_board" | "none"
         state: "success" | "fail" | "in_progress" | "none",
         message: string
     }
@@ -99,7 +99,8 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                         update(
                             state.boards_settings,
                             {
-                                boards: state.boards_settings.boards.concat(action.board)
+                                boards: state.boards_settings.boards.concat(action.board),
+                                new_board_name: ''
                             }
                         )
                 }

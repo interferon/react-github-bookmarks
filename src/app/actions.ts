@@ -42,14 +42,23 @@ export const search_repos = (query: string): ActionReturnType =>
 
 export const add_new_board = (data: {title: string}): ActionReturnType => 
     (dispatch: BookmarksDispatch): void => {
-        dispatch({
-            type: "ADD_NEW_BOARD",
-            board: {
-                id: new Date().getTime().toString(),
-                items: [],
-                title: data.title
-            }
-        })
+        data.title.length
+            ? dispatch({
+                type: "ADD_NEW_BOARD",
+                board: {
+                    id: new Date().getTime().toString(),
+                    items: [],
+                    title: data.title
+                }
+            })
+            : dispatch({
+                type: "SET_OPERATION_STATE",
+                params: {
+                    message: "Please add board name",
+                    state: 'fail',
+                    type: "add_new_board"
+                }
+            }) 
     };
 
 

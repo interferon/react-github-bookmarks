@@ -1,6 +1,7 @@
 import React from 'react'
 import { PlusIcon } from '../icons/PlusIcon';
 import { GithubRepo } from 'src/app/git_hub_api/search_repos';
+import styled from 'styled-components';
 
 
 type BoardItem = GithubRepo;
@@ -20,15 +21,17 @@ type BoardsProps = {
 };
 
 const BoardItem = (item: BoardItem): JSX.Element => {
-    return <div key={item.id}>{item.name}</div>
+    return <li key={item.id}>{item.name}</li>
 };
 
 const Board = (board: Board): JSX.Element => {
     return <div key={board.id} style={{border: "1px solid black"}}>
         <label>{board.title}</label>
-        {
-            board.items.map(BoardItem)
-        }
+        <ul>
+            {
+                board.items.map(BoardItem)
+            }
+        </ul>
     </div>
 };
 
@@ -38,17 +41,21 @@ const BoardPlaceholder = (props: {
     on_board_add: () => void,
     on_new_board_name_change: (name: string) => void
 }) => {
-    return <div>
+    return <Placeholder>
         <input
-            defaultValue={props.new_board_name}
+            value={props.new_board_name}
             placeholder={props.placeholder}
             onChange={
                 (e) => props.on_new_board_name_change(e.target.value)
             }
         />
         <PlusIcon id={''} on_click={() => props.on_board_add()} />
-    </div>
-}
+    </Placeholder>
+};
+
+const Placeholder = styled.div`
+    display: flex;
+`;
 
 export const Boards = (props: BoardsProps) => {
     return (

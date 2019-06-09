@@ -10,6 +10,6 @@ export const PlusIcon = (props: {on_click: (id: string) => void, id: string}) =>
 };
 
 const Icon = styled.div`
-    width: 10px;
-    heightL 10px;
+    width: 20px;
+    heightL 20px;
 `;

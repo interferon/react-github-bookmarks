@@ -13,12 +13,12 @@ type DropDownProps = {
 
 export const SearchResult  = (props: DropDownProps) : JSX.Element =>  {
     const renderItem = (item: Item, index: number) => {
-        return <div key={index}>
+        return <SearchItem key={index}>
             <label>
                 {item.name}
             </label>
             <PlusIcon id={`${item.id}`} on_click={() => props.on_add_to_board(item)}/>
-        </div>
+        </SearchItem>
     };
     return <div>
         <h3>DropDown</h3>
@@ -27,3 +27,8 @@ export const SearchResult  = (props: DropDownProps) : JSX.Element =>  {
         }
     </div>
 }
+
+const SearchItem = styled.div`
+    display: flex;
+    align-items: center;
+`;
