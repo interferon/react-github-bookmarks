@@ -1,9 +1,9 @@
 // @flow
-import { applyMiddleware } from 'redux'
-import { createLogger } from 'redux-logger'
-import thunk from 'redux-thunk'
-import promise from 'redux-promise'
-import { Iterable } from 'immutable'
+import { Iterable } from 'immutable';
+import { applyMiddleware } from 'redux';
+import { createLogger } from 'redux-logger';
+import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 
 const error = (store: any) => (next: any) => (action: any) => {
   if (action.error) {

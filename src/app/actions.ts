@@ -2,7 +2,8 @@ import { BookmarksActions } from "./reducer";
 import { search_repositories } from "./git_hub_api/search_repos";
 import { Board } from "./Bookmarks/components/board/Boards";
 import { Unpacked } from "./helpers/typings";
-import { getSavedBoards } from "./storage/db";
+import { getSavedBoards, saveBoard } from "./storage/db";
+import { update } from "./helpers/update";
 
 export type BookmarksDispatch = (a: BookmarksActions) => void
 type ActionReturnType = (dispatch: BookmarksDispatch) => void;
@@ -72,13 +73,25 @@ export const change_new_board_title = (text: string): ActionReturnType =>
     };
 
 
-export const add_item_to_board = (item: Unpacked<Board['items']>, board_id: string): ActionReturnType =>
+export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board): ActionReturnType =>
     (dispatch: BookmarksDispatch): void => {
         dispatch({
-            type: "ADD_ITEM_TO_BOARD",
-            board_id,
-            item
-        })
+            type: 'SET_OPERATION_STATE',
+            params: {
+                message: 'Saving boards',
+                state: "in_progress",
+                type: 'save_item'
+            }
+        });
+
+        saveBoard(update(board, {items: board.items.concat(item)})).then(
+            board =>
+                dispatch({
+                    type: 'UPDATE_BOARDS',
+                    boards: [board]
+                })
+        )
+        
     };
 
 export const load_boards = (): ActionReturnType =>

@@ -2,7 +2,8 @@
 import { update } from './helpers/update';
 import { Board } from './Bookmarks/components/board/Boards';
 import { Unpacked } from './helpers/typings';
-
+import { upsertAllBy } from './helpers/ramda-helpers';
+import * as R from 'ramda';
 
 export type BookmarkState = {
     boards_settings: {
@@ -12,7 +13,7 @@ export type BookmarkState = {
     search_query: string,
     items: Unpacked<Board['items']>[];
     operation: {
-        type: "search" | "add_new_board" | "load_boards" | "none"
+        type: "search" | "add_new_board" | "load_boards" | "save_item" | "none"
         state: "success" | "fail" | "in_progress" | "none",
         message: string
     }
@@ -29,11 +30,6 @@ export type BookmarksActions =
         board: Board
     } |
     {
-        type : 'ADD_ITEM_TO_BOARD',
-        item: Unpacked<Board['items']>
-        board_id: string
-    } |
-    {
         type : 'SET_NEW_BOARD_NAME',
         text: string
     } |
@@ -44,7 +40,10 @@ export type BookmarksActions =
     {
         type : 'SET_BOARDS',
         boards: Board[]
-    };
+    } | {
+        type : "UPDATE_BOARDS",
+        boards: Board[]
+    }
 
 const initialBookmarkState : BookmarkState = {
     boards_settings: {
@@ -78,23 +77,7 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
             );
         case 'SET_OPERATION_STATE':
             return update(state, {operation : action.params});
-        case 'ADD_ITEM_TO_BOARD':
-            const board = state.boards_settings.boards.find(b => b.id === action.board_id);
-            if (board) {
-                const upd_board = update(board, {items: board.items.concat(action.item)})
-                return update(
-                    state,
-                    {
-                        boards_settings:
-                            update(
-                                state.boards_settings,
-                                {
-                                    boards: state.boards_settings.boards.filter(b => b.id !== upd_board.id).concat(upd_board)
-                                }
-                            )
-                    });
-            }
-            return state;
+            
         case 'ADD_NEW_BOARD':
             return update(
                 state,
@@ -140,6 +123,21 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                     }
                 }
             );
+        case 'UPDATE_BOARDS':
+            return R.assocPath(
+                ['boards_settings', 'boards'],
+                upsertAllBy(_ => _.id, action.boards, state.boards_settings.boards),
+                update(
+                    state,
+                    {
+                        operation: {
+                            message: '',
+                            state: 'success',
+                            type: 'load_boards'
+                        }
+                    }
+                )
+            )
         default:
             return state;
     }

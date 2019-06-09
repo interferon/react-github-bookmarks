@@ -33,7 +33,7 @@ class App extends React.Component<AppProps> {
                         : <SearchResult
                             items={items}
                             on_add_to_board={
-                                (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0].id)
+                                (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
                             }
                         />
                 }

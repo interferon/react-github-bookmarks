@@ -1,4 +1,5 @@
 import { promise } from "../helpers/promise";
+import { parseJSONSafe } from "../helpers/parseJSONSafe";
 
 interface LocalStorage {
     load<Out>(key: string): Promise<Out>;
@@ -6,11 +7,10 @@ interface LocalStorage {
     remove(key: string): Promise<string>;
 };
 
-
 let load = <Out>(key: string): Promise<Out> => promise((resolve) => {
     let data = localStorage[key]
     resolve(
-        <Out>(data ? JSON.parse(data) : null)
+        <Out>(data ? parseJSONSafe(data) : null)
     )
 })
 
