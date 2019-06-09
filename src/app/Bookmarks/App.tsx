@@ -15,7 +15,12 @@ type AppProps = BookmarkState & OwnProps;
 
 
 class App extends React.Component<AppProps> {
-
+    constructor(props: AppProps){
+        super(props);
+        this.componentDidMount = () => {
+            this.props.load_boards();
+        }
+    }
     render() {
         const {items, boards_settings} = this.props;
         const search_repos = debounce(this.props.search_repos, 500, false);

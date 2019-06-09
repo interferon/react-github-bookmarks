@@ -12,7 +12,7 @@ export type BookmarkState = {
     search_query: string,
     items: Unpacked<Board['items']>[];
     operation: {
-        type: "search" | "add_new_board" | "none"
+        type: "search" | "add_new_board" | "load_boards" | "none"
         state: "success" | "fail" | "in_progress" | "none",
         message: string
     }
@@ -40,6 +40,10 @@ export type BookmarksActions =
     {
         type : 'SET_OPERATION_STATE',
         params : BookmarkState['operation']
+    } |
+    {
+        type : 'SET_BOARDS',
+        boards: Board[]
     };
 
 const initialBookmarkState : BookmarkState = {
@@ -50,9 +54,9 @@ const initialBookmarkState : BookmarkState = {
     search_query: '',
     items: [],
     operation: {
-        message: '',
-        type: "none",
-        state: 'none'
+        message: 'Loadind boards',
+        type: "load_boards",
+        state: 'in_progress'
     }
     
 };
@@ -116,6 +120,24 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                                 new_board_name: action.text
                             }
                         )
+                }
+            );
+        case 'SET_BOARDS':
+            return update(
+                state,
+                {
+                    boards_settings:
+                        update(
+                            state.boards_settings,
+                            {
+                                boards: action.boards
+                            }
+                        ),
+                    operation: {
+                        message: '',
+                        state: 'success',
+                        type: 'load_boards'
+                    }
                 }
             );
         default:

@@ -5,5 +5,3 @@ import { reducer } from './reducer';
 
 
 export const store = createStore(reducer, middleware);
-// @ts-ignore
-window.store = store

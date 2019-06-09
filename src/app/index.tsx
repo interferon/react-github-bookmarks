@@ -22,6 +22,7 @@ class Application extends React.PureComponent {
                     key={i}
                     path={route.path}
                     component={route.component}
+                    onEnter={() => {}}
                   />
               )
             }

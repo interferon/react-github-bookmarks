@@ -7,7 +7,6 @@ interface LocalStorage {
 };
 
 
-
 let load = <Out>(key: string): Promise<Out> => promise((resolve) => {
     let data = localStorage[key]
     resolve(
