@@ -49,11 +49,6 @@ export const add_new_board = (data: {title: string}): ActionReturnType =>
         };
 
         saveBoard(new_board).then(saved => dispatch({ type: "ADD_NEW_BOARD", board: saved }));
-            // : set_operation_state({
-            //     message: "Please add board name",
-            //     state: 'fail',
-            //     type: "add_new_board"
-            // }); 
     };
 
 export const change_new_board_title = (text: string): ActionReturnType =>
@@ -139,7 +134,6 @@ export const clear_search_result = (query: string) =>
 
 export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) =>
     (dispatch: BookmarksDispatch) => {
-
         dispatch({ type: 'SET_BOARDS', boards : []})
     }
 
