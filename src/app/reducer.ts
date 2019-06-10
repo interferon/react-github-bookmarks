@@ -71,11 +71,15 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
         case 'SHOW_REPOS':
             return update(
                 {
-                    search: {
-                        search_result: action.items,
-                        search_query: action.query,
-                        added_items_ids: state.search.added_items_ids
-                    },
+                    search:
+                        update(
+                            {
+                                search_result: action.items,
+                                search_query: action.query
+                            },
+                            state.search
+                        )
+                    ,
                     operation: {
                         message : '',
                         state : 'success',
