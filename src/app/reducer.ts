@@ -10,9 +10,11 @@ export type BookmarkState = {
         boards: Board[],
         new_board_name: string,
     },
-    search_query: string,
-    searched_items: Unpacked<Board['items']>[];
-    added_items_ids:  Unpacked<Board['items']>['id'][]
+    search: {
+        search_query: string,
+        search_result: Unpacked<Board['items']>[];
+        added_items_ids:  Unpacked<Board['items']>['id'][]
+    }
     operation: {
         type: "search" | "add_new_board" | "load_boards" | "save_item" | "none"
         state: "success" | "fail" | "in_progress" | "none",
@@ -51,9 +53,11 @@ const initialBookmarkState : BookmarkState = {
         boards: [],
         new_board_name: ''
     },
-    search_query: '',
-    searched_items: [],
-    added_items_ids: [],
+    search: {
+        search_query: '',
+        search_result: [],
+        added_items_ids: []
+    },
     operation: {
         message: 'Loadind boards',
         type: "load_boards",
@@ -67,8 +71,11 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
         case 'SHOW_REPOS':
             return update(
                 {
-                    searched_items: action.items,
-                    search_query: action.query,
+                    search: {
+                        search_result: action.items,
+                        search_query: action.query,
+                        added_items_ids: state.search.added_items_ids
+                    },
                     operation: {
                         message : '',
                         state : 'success',
@@ -123,7 +130,12 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                         state: 'success',
                         type: 'load_boards'
                     },
-                    added_items_ids: R.chain(_ => _.items.map(i => i.id), action.boards)
+                    search: update(
+                        {
+                            added_items_ids: R.chain(_ => _.items.map(i => i.id), action.boards),
+                        },
+                        state.search
+                    )
                 },
                 state
             );
@@ -139,7 +151,14 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                             state: 'success',
                             type: 'load_boards'
                         },
-                        added_items_ids: R.chain(_ => _.items.map(i => i.id), updated_boards)
+                        search:
+                            update(
+                                {
+                                    added_items_ids: R.chain(_ => _.items.map(i => i.id), updated_boards)
+                                },
+                                state.search
+                            )
+
                     },
                     state
                 )

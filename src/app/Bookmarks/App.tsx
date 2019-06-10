@@ -22,7 +22,7 @@ class App extends React.Component<AppProps> {
         }
     }
     render() {
-        const {searched_items, boards_settings, added_items_ids, clear_search_result} = this.props;
+        const {search, boards_settings, clear_search_result} = this.props;
         const search_repos = debounce(this.props.search_repos, 500, false);
         return (
             <div>
@@ -38,8 +38,8 @@ class App extends React.Component<AppProps> {
                     this.props.operation.state === 'in_progress' && this.props.operation.type === 'search'
                         ? "Loading..."
                         : <ItemsList
-                            items={searched_items}
-                            added_to_board_ids={added_items_ids}
+                            items={search.search_result}
+                            added_to_board_ids={search.added_items_ids}
                             on_add_to_board={
                                 (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
                             }
