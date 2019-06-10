@@ -23,10 +23,12 @@ export type Board = {
 type BoardsProps = {
     boards: Board[],
     new_board_name: string
-    on_new_board: (b: {title: string}) => void,
-    on_new_board_title_change: (board_title: string) => void,
-    on_board_remove: (id: string) => void,
-    on_board_item_remove: (a : {board_id: string, item_id: string}) => void
+    handlers: {
+        on_new_board: (b: {title: string}) => void,
+        on_new_board_title_change: (board_title: string) => void,
+        on_board_remove: (id: string) => void,
+        on_board_item_remove: (a : {board_id: string, item_id: string}) => void
+    }
 };
 
 const RenderBoardItem = (on_item_remove: (id: string) => void, item: BoardItem): JSX.Element => {
@@ -42,7 +44,7 @@ const RenderBoardItem = (on_item_remove: (id: string) => void, item: BoardItem):
 };
 
 const RenderBoard = (
-    handlers: Pick<BoardsProps, 'on_board_remove' | 'on_board_item_remove'>,
+    handlers: Pick<BoardsProps['handlers'], 'on_board_remove' | 'on_board_item_remove'>,
     board: Board
 ): JSX.Element => {
     return <BoardCont key={board.id}>
@@ -92,13 +94,13 @@ export const Boards = (props: BoardsProps) => {
             <h3>Boards</h3>
             <FlexContainer>
                 {
-                    props.boards.map(b => RenderBoard(pick(['on_board_remove', 'on_board_item_remove'], props), b))
+                    props.boards.map(b => RenderBoard(pick(['on_board_remove', 'on_board_item_remove'], props.handlers), b))
                 }
                 <BoardPlaceholder
                     new_board_name={props.new_board_name}
                     placeholder={'Enter Name'}
-                    on_board_add={() => props.on_new_board({title: props.new_board_name})}
-                    on_new_board_name_change={props.on_new_board_title_change}
+                    on_board_add={() => props.handlers.on_new_board({title: props.new_board_name})}
+                    on_new_board_name_change={props.handlers.on_new_board_title_change}
                 />
             </FlexContainer>
         </div>
