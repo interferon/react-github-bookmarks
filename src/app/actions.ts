@@ -37,25 +37,6 @@ export const search_repos = (query: string): ActionReturnType =>
                     )
                 }
             )
-        // if (query.length >= 2) {
-        //     set_operation_state({
-        //         message: '',
-        //         state: "in_progress",
-        //         type: 'search'
-        //     });
-            
-        //     } else {
-        //         dispatch({
-        //             type: 'SHOW_REPOS',
-        //             items: [],
-        //             query
-        //         });
-        //         set_operation_state({
-        //             message: 'Type at least 2 characters',
-        //             state: "success",
-        //             type: 'search'
-        //         });
-        //     }
     };
 
 export const add_new_board = (data: {title: string}): ActionReturnType => 
@@ -158,6 +139,7 @@ export const clear_search_result = (query: string) =>
 
 export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) =>
     (dispatch: BookmarksDispatch) => {
+
         dispatch({ type: 'SET_BOARDS', boards : []})
     }
 
