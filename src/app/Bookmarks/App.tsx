@@ -8,6 +8,9 @@ import { ItemsList } from './components/items_list/ItemsList';
 import { Message } from './components/Message';
 import SearchBar from './components/search_bar/SearchBar';
 import { Boards } from './components/board/Boards';
+import HTML5Backend from 'react-dnd-html5-backend'
+import { DragDropContextProvider } from 'react-dnd'
+
 
 type OwnProps = typeof all_actions;
 
@@ -45,18 +48,20 @@ class App extends React.Component<AppProps> {
                             }
                         />
                 }
-                <Boards
-                    boards={boards_settings.boards}
-                    new_board_name={boards_settings.new_board_name}
-                    handlers={{
-                        on_new_board_title_change: this.props.change_new_board_title,
-                        on_new_board: this.props.add_new_board,
-                        on_board_item_remove: this.props.remove_board_item,
-                        on_board_remove: this.props.remove_board,
-                        on_item_changed_board: this.props.change_item_board,
-                        on_board_items_sort: this.props.sort_board_items
-                    }}
-                />
+                <DragDropContextProvider backend={HTML5Backend}>
+                    <Boards
+                        boards={boards_settings.boards}
+                        new_board_name={boards_settings.new_board_name}
+                        handlers={{
+                            on_new_board_title_change: this.props.change_new_board_title,
+                            on_new_board: this.props.add_new_board,
+                            on_board_item_remove: this.props.remove_board_item,
+                            on_board_remove: this.props.remove_board,
+                            on_item_changed_board: this.props.change_item_board,
+                            on_board_items_sort: this.props.sort_board_items
+                        }}
+                    />
+                </DragDropContextProvider>
                 <Message operation={this.props.operation}/>
             </div>
         );
