@@ -1,21 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
-export const PlusIcon = (props: {on_click: (id: string) => void, id: string}) => {
+const create_assets_icon = (asset: string) => (
+    props: {
+        on_click?: (id: string) => void,
+        id: string
+    }
+) => {
     return <Icon
-        dangerouslySetInnerHTML={{ __html: require('../../../../assets/plus.svg') }}
-        onClick={() => props.on_click(props.id)}
+        dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }}
+        onClick={() => props.on_click && props.on_click(props.id)}
     />
-
 };
 
-export const RemoveIcon = (props: {on_click: (id: string) => void, id: string}) => {
-    return <Icon
-        dangerouslySetInnerHTML={{ __html: require('../../../../assets/close.svg') }}
-        onClick={() => props.on_click(props.id)}
-    />
+export const PlusIcon = create_assets_icon('plus');
+export const RemoveIcon = create_assets_icon('close');
+export const AddedIcon = create_assets_icon('checkmark');
 
-};
+
 
 const Icon = styled.div`
     width: 20px;

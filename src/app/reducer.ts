@@ -11,7 +11,8 @@ export type BookmarkState = {
         new_board_name: string,
     },
     search_query: string,
-    items: Unpacked<Board['items']>[];
+    searched_items: Unpacked<Board['items']>[];
+    added_items_ids:  Unpacked<Board['items']>['id'][]
     operation: {
         type: "search" | "add_new_board" | "load_boards" | "save_item" | "none"
         state: "success" | "fail" | "in_progress" | "none",
@@ -51,7 +52,8 @@ const initialBookmarkState : BookmarkState = {
         new_board_name: ''
     },
     search_query: '',
-    items: [],
+    searched_items: [],
+    added_items_ids: [],
     operation: {
         message: 'Loadind boards',
         type: "load_boards",
@@ -65,7 +67,7 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
         case 'SHOW_REPOS':
             return update(
                 {
-                    items: action.items,
+                    searched_items: action.items,
                     search_query: action.query,
                     operation: {
                         message : '',
@@ -120,21 +122,24 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                         message: '',
                         state: 'success',
                         type: 'load_boards'
-                    }
+                    },
+                    added_items_ids: R.chain(_ => _.items.map(i => i.id), action.boards)
                 },
                 state
             );
         case 'UPDATE_BOARDS':
+            const updated_boards = upsertAllBy(_ => _.id, action.boards, state.boards_settings.boards);
             return R.assocPath(
                 ['boards_settings', 'boards'],
-                upsertAllBy(_ => _.id, action.boards, state.boards_settings.boards),
+                updated_boards,
                 update(
                     {
                         operation: {
                             message: '',
                             state: 'success',
                             type: 'load_boards'
-                        }
+                        },
+                        added_items_ids: R.chain(_ => _.items.map(i => i.id), updated_boards)
                     },
                     state
                 )
