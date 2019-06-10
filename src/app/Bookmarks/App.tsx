@@ -8,7 +8,6 @@ import { ItemsList } from './components/items_list/ItemsList';
 import { Message } from './components/Message';
 import SearchBar from './components/search_bar/SearchBar';
 import { Boards } from './components/board/Boards';
-import * as R from 'ramda';
 
 type OwnProps = typeof all_actions;
 
@@ -53,7 +52,9 @@ class App extends React.Component<AppProps> {
                         on_new_board_title_change: this.props.change_new_board_title,
                         on_new_board: this.props.add_new_board,
                         on_board_item_remove: this.props.remove_board_item,
-                        on_board_remove: this.props.remove_board
+                        on_board_remove: this.props.remove_board,
+                        on_item_changed_board: this.props.change_item_board,
+                        on_board_items_sort: this.props.sort_board_items
                     }}
                 />
                 <Message operation={this.props.operation}/>

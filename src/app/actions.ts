@@ -1,6 +1,6 @@
 import { BookmarksActions, BookmarkState } from "./reducer";
 import { search_repositories } from "./git_hub_api/search_repos";
-import { Board } from "./Bookmarks/components/board/Boards";
+import { Board, BoardItem} from "./Bookmarks/components/board/Boards";
 import { Unpacked } from "./helpers/typings";
 import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem } from "./storage/db";
 import { update } from "./helpers/update";
@@ -154,4 +154,14 @@ export const clear_search_result = (query: string) =>
             items: [],
             query
         });
+    }
+
+export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) =>
+    (dispatch: BookmarksDispatch) => {
+        dispatch({ type: 'SET_BOARDS', boards : []})
+    }
+
+export const sort_board_items = (params: {board_id: Board['id'], order: BoardItem['id'][]}) =>
+    (dispatch: BookmarksDispatch) => {
+        dispatch({ type: 'SET_BOARDS', boards : []})
     }

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
 import { pick } from 'ramda';
 
-type BoardItem = GithubRepo;
+export type BoardItem = GithubRepo;
 
 const Placeholder = styled.div`display: flex;`;
 const BoardCont = styled.div`border: 1px solid black;`
@@ -20,14 +20,16 @@ export type Board = {
     id: string
 };
 
-type BoardsProps = {
+export type BoardsProps = {
     boards: Board[],
     new_board_name: string
     handlers: {
         on_new_board: (b: {title: string}) => void,
         on_new_board_title_change: (board_title: string) => void,
-        on_board_remove: (id: string) => void,
-        on_board_item_remove: (a : {board_id: string, item_id: string}) => void
+        on_board_remove: (id: Board['id']) => void,
+        on_board_item_remove: (a : {board_id: Board['id'], item_id: BoardItem['id']}) => void
+        on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) => void,
+        on_board_items_sort: (params: {board_id: Board['id'], order: BoardItem['id'][]}) => void
     }
 };
 
