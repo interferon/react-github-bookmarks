@@ -1,0 +1,1 @@
+export const generate_board_id = (): string => new Date().getTime().toString();

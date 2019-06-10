@@ -1,10 +1,18 @@
-import React from 'react'
-import { PlusIcon } from '../icons/PlusIcon';
+import React from 'react';
 import { GithubRepo } from 'src/app/git_hub_api/search_repos';
 import styled from 'styled-components';
-
+import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
+import { pick } from 'ramda';
 
 type BoardItem = GithubRepo;
+
+const Placeholder = styled.div`display: flex;`;
+const BoardCont = styled.div`border: 1px solid black;`
+const FlexContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    allign-items: center;
+`;
 
 export type Board = {
     items: BoardItem[],
@@ -14,21 +22,46 @@ export type Board = {
 
 type BoardsProps = {
     boards: Board[],
+    new_board_name: string
     on_new_board: (b: {title: string}) => void,
     on_new_board_title_change: (board_title: string) => void,
-    new_board_name: string
+    on_board_remove: (id: string) => void,
+    on_board_item_remove: (a : {board_id: string, item_id: string}) => void
 };
 
-const BoardItem = (item: BoardItem): JSX.Element => {
-    return <li key={item.id}>{item.name}</li>
+const RenderBoardItem = (on_item_remove: (id: string) => void, item: BoardItem): JSX.Element => {
+    return <FlexContainer key={item.id}>
+        <li>{item.name}</li>
+        <RemoveIcon
+            on_click={
+                (id) => on_item_remove(id)
+            }
+            id={item.id}
+        />
+    </FlexContainer>
 };
 
-const Board = (board: Board): JSX.Element => {
+const RenderBoard = (
+    handlers: Pick<BoardsProps, 'on_board_remove' | 'on_board_item_remove'>,
+    board: Board
+): JSX.Element => {
     return <BoardCont key={board.id}>
-        <label>{board.title}</label>
+        <FlexContainer>
+            <label>{board.title}</label>
+            <RemoveIcon
+                on_click={(id) => handlers.on_board_remove(id)}
+                id={board.id}
+            />
+        </FlexContainer>
         <ul>
             {
-                board.items.map(BoardItem)
+                board.items.map(
+                    board_item =>
+                        RenderBoardItem(
+                            (item_id) => handlers.on_board_item_remove({board_id: board.id, item_id}),
+                            board_item
+                        )
+                )
             }
         </ul>
     </BoardCont>
@@ -52,27 +85,14 @@ const BoardPlaceholder = (props: {
     </Placeholder>
 };
 
-const Placeholder = styled.div`
-    display: flex;
-`;
-
-const BoardCont = styled.div`
-    border: 1px solid black;
-`
-
-const BoardsContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    allign-items: center;
-`;
 
 export const Boards = (props: BoardsProps) => {
     return (
         <div>
             <h3>Boards</h3>
-            <BoardsContainer>
+            <FlexContainer>
                 {
-                    props.boards.map(Board)
+                    props.boards.map(b => RenderBoard(pick(['on_board_remove', 'on_board_item_remove'], props), b))
                 }
                 <BoardPlaceholder
                     new_board_name={props.new_board_name}
@@ -80,7 +100,7 @@ export const Boards = (props: BoardsProps) => {
                     on_board_add={() => props.on_new_board({title: props.new_board_name})}
                     on_new_board_name_change={props.on_new_board_title_change}
                 />
-            </BoardsContainer>
+            </FlexContainer>
         </div>
     );
 }

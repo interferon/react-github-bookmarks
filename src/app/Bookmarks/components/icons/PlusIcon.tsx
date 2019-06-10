@@ -9,6 +9,14 @@ export const PlusIcon = (props: {on_click: (id: string) => void, id: string}) =>
 
 };
 
+export const RemoveIcon = (props: {on_click: (id: string) => void, id: string}) => {
+    return <Icon
+        dangerouslySetInnerHTML={{ __html: require('../../../../assets/close.svg') }}
+        onClick={() => props.on_click(props.id)}
+    />
+
+};
+
 const Icon = styled.div`
     width: 20px;
     heightL 20px;

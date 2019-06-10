@@ -1,1 +1,1 @@
-export const update = <T>(a: T, b: Partial<T>): T => Object.assign<T, Partial<T>>(Object.assign({}, a), b);
+export const update = <T>(a: Partial<T>, b: T): T => Object.assign<T, Partial<T>>(Object.assign({}, b), a);

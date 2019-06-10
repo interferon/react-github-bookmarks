@@ -1,8 +1,8 @@
-import React from 'react'
-import styled from 'styled-components';
-import { PlusIcon } from '../icons/PlusIcon';
-import { Board } from '../board/Boards';
+import React from 'react';
 import { Unpacked } from 'src/app/helpers/typings';
+import styled from 'styled-components';
+import { Board } from '../board/Boards';
+import { PlusIcon } from '../icons/PlusIcon';
 
 type Item = Unpacked<Board['items']>;
 

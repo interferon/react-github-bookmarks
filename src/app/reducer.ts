@@ -64,7 +64,6 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
     switch (action.type) {
         case 'SHOW_REPOS':
             return update(
-                state,
                 {
                     items: action.items,
                     search_query: action.query,
@@ -73,74 +72,71 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                         state : 'success',
                         type: 'search'
                     }
-                }
+                },
+                state,
             );
         case 'SET_OPERATION_STATE':
-            return update(state, {operation : action.params});
+            return update({operation : action.params}, state);
             
         case 'ADD_NEW_BOARD':
             return update(
-                state,
                 {
-                    boards_settings:
-                        update(
-                            state.boards_settings,
-                            {
-                                boards: state.boards_settings.boards.concat(action.board),
-                                new_board_name: ''
-                            }
-                        ),
+                    boards_settings: {
+                        boards: state.boards_settings.boards.concat(action.board),
+                        new_board_name: ''
+                    },
                     operation: {
                         message: '',
                         state: 'success',
                         type: 'add_new_board'
                     }
-                }
+                },
+                state
             );
         case 'SET_NEW_BOARD_NAME':
             return update(
-                state,
                 {
                     boards_settings:
                         update(
-                            state.boards_settings,
                             {
                                 new_board_name: action.text
-                            }
+                            },
+                            state.boards_settings,
                         )
-                }
+                },
+                state
             );
         case 'SET_BOARDS':
             return update(
-                state,
                 {
                     boards_settings:
                         update(
-                            state.boards_settings,
                             {
                                 boards: action.boards
-                            }
+                            },
+                            state.boards_settings,
                         ),
                     operation: {
                         message: '',
                         state: 'success',
                         type: 'load_boards'
                     }
-                }
+                },
+                state
             );
         case 'UPDATE_BOARDS':
             return R.assocPath(
                 ['boards_settings', 'boards'],
                 upsertAllBy(_ => _.id, action.boards, state.boards_settings.boards),
                 update(
-                    state,
                     {
                         operation: {
                             message: '',
                             state: 'success',
                             type: 'load_boards'
                         }
-                    }
+                    },
+                    state
                 )
             )
         default:

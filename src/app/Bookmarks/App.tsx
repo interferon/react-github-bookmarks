@@ -42,6 +42,8 @@ class App extends React.Component<AppProps> {
                     new_board_name={boards_settings.new_board_name}
                     on_new_board_title_change={this.props.change_new_board_title}
                     on_new_board={this.props.add_new_board}
+                    on_board_item_remove={this.props.remove_board_item}
+                    on_board_remove={this.props.remove_board}
                 />
                 <Message operation={this.props.operation}/>
             </div>

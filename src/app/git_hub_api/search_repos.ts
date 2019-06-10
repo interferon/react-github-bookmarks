@@ -1,5 +1,6 @@
 import { fetch_json, BookmarksError } from "../helpers/fetch";
 import { Either } from "fp-ts/lib/Either";
+import { update } from "../helpers/update";
 
 
 type GitHubSearchResp = {
@@ -9,7 +10,7 @@ type GitHubSearchResp = {
 }
 
 export type GithubRepo = {
-  id: number;
+  id: string;
   node_id: string;
   name: string;
   full_name: string;
@@ -45,5 +46,8 @@ export type GithubRepo = {
 
 export const search_repositories = (creds: {token: string}, query: string): Promise<Either<BookmarksError, GithubRepo[]>> => {
     const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc`;
-    return fetch_json<GitHubSearchResp>(url, {}).then(respE => respE.map(_ => _.items));
+    return fetch_json<GitHubSearchResp>(url, {})
+      .then(
+        respE => respE.map(_ => _.items.map(gr => update({id: `${gr.id}`}, gr)))
+      );
 }
