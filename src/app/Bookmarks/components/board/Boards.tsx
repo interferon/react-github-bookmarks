@@ -3,6 +3,7 @@ import { GithubRepo } from 'src/app/git_hub_api/search_repos';
 import styled from 'styled-components';
 import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
 import { pick } from 'ramda';
+import { useDrag } from 'react-dnd'
 
 export type BoardItem = GithubRepo;
 
@@ -34,14 +35,10 @@ export type BoardsProps = {
 };
 
 const RenderBoardItem = (on_item_remove: (id: string) => void, item: BoardItem): JSX.Element => {
+
     return <FlexContainer key={item.id}>
         <li>{item.name}</li>
-        <RemoveIcon
-            on_click={
-                (id) => on_item_remove(id)
-            }
-            id={item.id}
-        />
+        <RemoveIcon on_click={(id) => on_item_remove(id)} id={item.id}/>
     </FlexContainer>
 };
 

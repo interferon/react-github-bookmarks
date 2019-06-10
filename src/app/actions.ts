@@ -1,5 +1,5 @@
 import { BookmarksActions, BookmarkState } from "./reducer";
-import { search_repositories } from "./git_hub_api/search_repos";
+import { search_repositories as search_items } from "./git_hub_api/search_repos";
 import { Board, BoardItem} from "./Bookmarks/components/board/Boards";
 import { Unpacked } from "./helpers/typings";
 import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem } from "./storage/db";
@@ -17,7 +17,7 @@ export const search_repos = (query: string): ActionReturnType =>
             type: 'search'
         })(dispatch);
 
-        search_repositories({ token: '' }, query)
+        search_items({ token: '' }, query)
             .then(
                 reposE => {
                     reposE.fold(
@@ -30,7 +30,7 @@ export const search_repos = (query: string): ActionReturnType =>
                         },
                         (repos) =>
                             dispatch({
-                                type: 'SHOW_REPOS',
+                                type: 'SHOW_ITEMS',
                                 items: repos.filter(r => r.name.includes(query)),
                                 query
                             })
@@ -126,7 +126,7 @@ export const set_operation_state = (params: BookmarkState['operation']): ActionR
 export const clear_search_result = (query: string) => 
     (dispatch: BookmarksDispatch) => {
         dispatch({
-            type: 'SHOW_REPOS',
+            type: 'SHOW_ITEMS',
             items: [],
             query
         });

@@ -33,7 +33,7 @@
     "react": "^16.8.6",
     "react-dnd": "^7.6.0",
     "react-dnd-html5-backend": "^7.6.0",
-    "react-dom": "^16.3.2",
+    "react-dom": "^16.8.6",
     "react-dropzone": "^4.2.9",
     "react-router-dom": "^5.0.1",
     "redux": "^4.0.0",

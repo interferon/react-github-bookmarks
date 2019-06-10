@@ -25,7 +25,7 @@ export type BookmarkState = {
 export type BookmarksActions =
     {
         query: string
-        type : 'SHOW_REPOS',
+        type : 'SHOW_ITEMS',
         items: Unpacked<Board['items']>[]
     } |
     {
@@ -68,7 +68,7 @@ const initialBookmarkState : BookmarkState = {
 
 export const reducer = (state: BookmarkState = initialBookmarkState, action: BookmarksActions): BookmarkState => {
     switch (action.type) {
-        case 'SHOW_REPOS':
+        case 'SHOW_ITEMS':
             return update(
                 {
                     search:
