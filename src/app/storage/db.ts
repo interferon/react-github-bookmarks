@@ -1,6 +1,6 @@
 import { Board } from "../Bookmarks/components/board/Boards";
 import { storage } from "./storage";
-import { upsertBy } from "../helpers/ramda-helpers";
+import { upsertBy, upsertAllBy } from "../helpers/ramda-helpers";
 import { update } from "../helpers/update";
 import { reject } from "ramda";
 import { generate_board_id } from "../helpers/generateBoardId";
@@ -18,8 +18,12 @@ export const removeBoardItem = (params: { board_id: string, item_id: string }): 
     getSavedBoards()
         .then(
             all_boards => {
-                const [to_remove, rest] = R.partition(b => b.id === params.board_id, all_boards);
-                return rest.concat(to_remove.map(b => update({ items: reject(_ => _.id === params.item_id, b.items) }, b)))
+                const [to_remove] = R.partition(b => b.id === params.board_id, all_boards);
+                return upsertAllBy(
+                    _ => _.id,
+                    to_remove.map(b => update({ items: reject(_ => _.id === params.item_id, b.items) }, b)),
+                    all_boards
+                )
             }
         )
         .then(saveAllBoards);
