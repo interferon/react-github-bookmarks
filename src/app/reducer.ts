@@ -79,12 +79,6 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                             },
                             state.search
                         )
-                    ,
-                    operation: {
-                        message : '',
-                        state : 'success',
-                        type: 'search'
-                    }
                 },
                 state,
             );
@@ -97,11 +91,6 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                     boards_settings: {
                         boards: state.boards_settings.boards.concat(action.board),
                         new_board_name: ''
-                    },
-                    operation: {
-                        message: '',
-                        state: 'success',
-                        type: 'add_new_board'
                     }
                 },
                 state
@@ -128,12 +117,8 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                                 boards: action.boards
                             },
                             state.boards_settings,
-                        ),
-                    operation: {
-                        message: '',
-                        state: 'success',
-                        type: 'load_boards'
-                    },
+                        )
+                    ,
                     search: update(
                         {
                             added_items_ids: R.chain(_ => _.items.map(i => i.id), action.boards),
@@ -150,11 +135,6 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                 updated_boards,
                 update(
                     {
-                        operation: {
-                            message: '',
-                            state: 'success',
-                            type: 'load_boards'
-                        },
                         search:
                             update(
                                 {
