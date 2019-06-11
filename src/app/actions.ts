@@ -28,12 +28,18 @@ export const search_repos = (query: string): ActionReturnType =>
                                 type: 'search'
                             });
                         },
-                        (repos) =>
+                        (repos) => {
                             dispatch({
                                 type: 'SHOW_ITEMS',
                                 items: repos.filter(r => r.name.includes(query)),
                                 query
-                            })
+                            });
+                            set_operation_state({
+                                message: "",
+                                state: 'success',
+                                type: "search"
+                            })(dispatch)
+                        }
                     )
                 }
             )

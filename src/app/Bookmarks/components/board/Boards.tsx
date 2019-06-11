@@ -3,7 +3,7 @@ import { GithubRepo } from 'src/app/git_hub_api/search_repos';
 import styled from 'styled-components';
 import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
 import { pick } from 'ramda';
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
 
 export type BoardItem = GithubRepo;
 
@@ -49,30 +49,35 @@ export type BoardsProps = {
     }
 };
 
-const RenderBoardItem = (on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id']): JSX.Element => {
-    const [_, drag_source] = useDrag<DragItem, any, any>(
-        {
-            item: { id: item.id, type: 'board_item', board_id }
-        }
-    );
+const RenderBoardItem = (data: {
+    on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id']
+}): JSX.Element => {
+    const {board_id, on_item_remove, item} = data;
+    // const [_, drag_source] = useDrag<DragItem, any, any>(
+    //     {
+    //         item: { id: item.id, type: 'board_item', board_id }
+    //     }
+    // );
     return (
         <FlexContainer key={item.id}>
-            <li ref={drag_source}>{item.name}</li>
+            <li>{item.name}</li>
             <RemoveIcon on_click={(id) => on_item_remove(id)} id={item.id}/>
         </FlexContainer>
     );
 };
 
-const RenderBoard = (handlers: Pick<BoardsProps['handlers'], 'on_board_remove' | 'on_board_item_remove' | 'on_item_changed_board'>, board: Board): JSX.Element => {
-    const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
-        accept: 'board_item',
-        drop: (i) => handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id}),
-        collect: (monitor) =>
-            ({
-                isOver: monitor.isOver(),
-                canDrop: monitor.canDrop(),
-            })
-    });
+const RenderBoard = (
+    data: {
+        handlers: Pick<BoardsProps['handlers'], 'on_board_remove' | 'on_board_item_remove' | 'on_item_changed_board'>,
+        board: Board
+    }
+): JSX.Element => {
+    const {handlers, board} = data;
+    // const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
+    //     accept: 'board_item',
+    //     drop: (i) => handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id}),
+    //     collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop()})
+    // });
 
     return (
         <BoardCont key={board.id}>
@@ -83,20 +88,23 @@ const RenderBoard = (handlers: Pick<BoardsProps['handlers'], 'on_board_remove' |
                     id={board.id}
                 />
             </FlexContainer>
-            <ul ref={drop} style={canDrop ? {backgroundColor: "black"} : {}}>
+            {/* ref={drop} style={canDrop ? {backgroundColor: "black"} : {}} */}
+            <ul>
                 {
                     board.items.map(
                         board_item =>
-                            RenderBoardItem(
-                                (item_id) =>
+                            <RenderBoardItem
+                                key={board_item.id}
+                                item={board_item}
+                                board_id={board.id}
+                                on_item_remove={
+                                    (item_id) =>
                                     handlers.on_board_item_remove({
                                         board_id: board.id,
                                         item_id
                                     })
-                                ,
-                                board_item,
-                                board.id
-                            )
+                                }
+                            />
                     )
                 }
             </ul>
@@ -124,10 +132,16 @@ export const Boards = (props: BoardsProps) =>
             {
                 props.boards.map(
                     board =>
-                        RenderBoard(
-                            pick(['on_board_remove', 'on_board_item_remove', 'on_item_changed_board'], props.handlers),
-                            board
-                        )
+                        <RenderBoard
+                            key={board.id}
+                            board={board}
+                            handlers={
+                                pick(
+                                    ['on_board_remove', 'on_board_item_remove', 'on_item_changed_board'],
+                                    props.handlers
+                                )
+                            }
+                        />
                 )
             }
             <BoardPlaceholder
