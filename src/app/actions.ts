@@ -134,10 +134,12 @@ export const clear_search_result = (query: string) =>
 
 export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) =>
     (dispatch: BookmarksDispatch) => {
-        dispatch({ type: 'SET_BOARDS', boards : []})
+        console.log(params)
+        // dispatch({ type: 'SET_BOARDS', boards : []})
     }
 
 export const sort_board_items = (params: {board_id: Board['id'], order: BoardItem['id'][]}) =>
     (dispatch: BookmarksDispatch) => {
-        dispatch({ type: 'SET_BOARDS', boards : []})
+        console.log(params)
+        // dispatch({ type: 'SET_BOARDS', boards : []})
     }
