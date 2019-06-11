@@ -30,6 +30,8 @@ const FlexContainer = styled.div`
     allign-items: center;
 `;
 
+const ItemsList = styled.ul`min-height: 50px`
+
 export type Board = {
     items: BoardItem[],
     title: string,
@@ -49,17 +51,16 @@ export type BoardsProps = {
     }
 };
 
-const RenderBoardItem = (data: {
-    on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id']
-}): JSX.Element => {
+const RenderBoardItem = (data: {on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id']}): JSX.Element => {
     const {board_id, on_item_remove, item} = data;
-    // const [_, drag_source] = useDrag<DragItem, any, any>(
-    //     {
-    //         item: { id: item.id, type: 'board_item', board_id }
-    //     }
-    // );
+
+    const [_, drag_source] = useDrag<DragItem, any, any>(
+        {
+            item: { id: item.id, type: 'board_item', board_id }
+        }
+    );
     return (
-        <FlexContainer key={item.id}>
+        <FlexContainer key={item.id} innerRef={drag_source}>
             <li>{item.name}</li>
             <RemoveIcon on_click={(id) => on_item_remove(id)} id={item.id}/>
         </FlexContainer>
@@ -73,11 +74,11 @@ const RenderBoard = (
     }
 ): JSX.Element => {
     const {handlers, board} = data;
-    // const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
-    //     accept: 'board_item',
-    //     drop: (i) => handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id}),
-    //     collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop()})
-    // });
+    const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
+        accept: 'board_item',
+        drop: (i) => handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id}),
+        collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop()})
+    });
 
     return (
         <BoardCont key={board.id}>
@@ -88,8 +89,7 @@ const RenderBoard = (
                     id={board.id}
                 />
             </FlexContainer>
-            {/* ref={drop} style={canDrop ? {backgroundColor: "black"} : {}} */}
-            <ul>
+            <ItemsList innerRef={drop} style={canDrop ? {backgroundColor: "yellow"} : {}}>
                 {
                     board.items.map(
                         board_item =>
@@ -107,7 +107,7 @@ const RenderBoard = (
                             />
                     )
                 }
-            </ul>
+            </ItemsList>
         </BoardCont>
     );
 };
