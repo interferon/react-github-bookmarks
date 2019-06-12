@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { GithubRepo } from 'src/app/git_hub_api/search_repos';
 import styled from 'styled-components';
 import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
 import { pick } from 'ramda';
-import { useDrag, useDrop, DropTargetMonitor } from 'react-dnd'
+import { useDrag, useDrop, DropTargetMonitor, XYCoord } from 'react-dnd'
 
 export type BoardItem = GithubRepo;
 
 type DragItem = {
+    index: number,
     id: string,
     board_id: string,
     type: 'board_item'
@@ -51,16 +52,24 @@ export type BoardsProps = {
     }
 };
 
-const RenderBoardItem = (data: {on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id']}): JSX.Element => {
+const RenderBoardItem = (data: {on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id'], index: number}): JSX.Element => {
     const {board_id, on_item_remove, item} = data;
 
-    const [_, drag_source] = useDrag<DragItem, any, any>(
+    
+    const [, drop] = useDrop<DragItem, any, any>({
+        accept: "board_item",
+        canDrop: () => false,
+        hover: (item) => {
+          console.log(item);
+        },
+      })
+    const [, drag] = useDrag<DragItem, any, any>(
         {
-            item: { id: item.id, type: 'board_item', board_id }
+            item: { id: item.id, type: 'board_item', board_id, index: data.index}
         }
     );
     return (
-        <FlexContainer key={item.id} innerRef={drag_source}>
+        <FlexContainer key={item.id} innerRef={node => drag(drop(node))}>
             <li>{item.name}</li>
             <RemoveIcon on_click={(id) => on_item_remove(id)} id={item.id}/>
         </FlexContainer>
@@ -76,7 +85,13 @@ const RenderBoard = (
     const {handlers, board} = data;
     const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
         accept: 'board_item',
-        drop: (i) => handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id}),
+        drop: (i) => {
+            handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id})
+        },
+        canDrop: (item) => {
+            return true;
+            //return item.board_id !== data.board.id
+        },
         collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop()})
     });
 
@@ -92,9 +107,10 @@ const RenderBoard = (
             <ItemsList innerRef={drop} style={canDrop ? {backgroundColor: "yellow"} : {}}>
                 {
                     board.items.map(
-                        board_item =>
+                        (board_item, i) =>
                             <RenderBoardItem
                                 key={board_item.id}
+                                index={i}
                                 item={board_item}
                                 board_id={board.id}
                                 on_item_remove={
