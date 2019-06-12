@@ -2,9 +2,11 @@ import { BookmarksActions, BookmarkState } from "./reducer";
 import { search_repositories as search_items } from "./git_hub_api/search_repos";
 import { Board, BoardItem} from "./Bookmarks/components/board/Boards";
 import { Unpacked } from "./helpers/typings";
-import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem } from "./storage/db";
+import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem, saveAllBoards } from "./storage/db";
 import { update } from "./helpers/update";
 import { generate_board_id } from "./helpers/generateBoardId";
+import { reject } from "ramda";
+import { upsertAllBy } from "./helpers/ramda-helpers";
 
 export type BookmarksDispatch = (a: BookmarksActions) => void
 type ActionReturnType = (dispatch: BookmarksDispatch) => void;
@@ -138,10 +140,26 @@ export const clear_search_result = (query: string) =>
         });
     }
 
-export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) =>
+export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}, all_boards: Board[]) =>
     (dispatch: BookmarksDispatch) => {
-        console.log(params)
-        // dispatch({ type: 'SET_BOARDS', boards : []})
+        const from_board = all_boards.find(b => b.id === params.from_board_id);
+        const to_board = all_boards.find(b => b.id === params.to_board_id);
+        
+        if(from_board && to_board) {
+            const items_to_move = from_board.items.filter(_ => _.id === params.item_id)
+            const updated_boards = upsertAllBy(
+                _ => _.id,
+                [
+                    update({items: reject(_ => _.id === params.item_id, from_board.items)}, from_board),
+                    update({items: to_board.items.concat(items_to_move)}, to_board)
+                ],
+                all_boards
+            );
+
+            saveAllBoards(updated_boards).then(
+                boards => dispatch({ type: 'SET_BOARDS', boards})
+            )
+        }
     }
 
 export const sort_board_items = (params: {board_id: Board['id'], order: BoardItem['id'][]}) =>

@@ -14,24 +14,24 @@ class Application extends React.PureComponent {
   render () {
     return (
       <DragDropContextProvider backend={HTML5Backend}>
-      <Provider store={store}>
-        <Router>
-          <Switch>
-            {
-              routes.map(
-                (route, i) =>
-                  <Route
-                    key={i}
-                    path={route.path}
-                    component={route.component}
-                    onEnter={() => {}}
-                  />
-              )
-            }
-            <Redirect key={-1} to='/boards' />
-          </Switch>
-        </Router>
-      </Provider>
+        <Provider store={store}>
+          <Router>
+            <Switch>
+              {
+                routes.map(
+                  (route, i) =>
+                    <Route
+                      key={i}
+                      path={route.path}
+                      component={route.component}
+                      onEnter={() => {}}
+                    />
+                )
+              }
+              <Redirect key={-1} to='/boards' />
+            </Switch>
+          </Router>
+        </Provider>
       </DragDropContextProvider>
     )
   }
