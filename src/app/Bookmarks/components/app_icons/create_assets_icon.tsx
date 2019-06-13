@@ -11,5 +11,5 @@ export const create_assets_icon = (asset: string) => (props: {
 
 const Icon = styled.div`
     width: 20px;
-    heightL 20px;
+    height: 20px;
 `;

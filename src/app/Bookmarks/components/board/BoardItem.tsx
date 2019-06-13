@@ -8,7 +8,7 @@ import { BoardItem, Board, DragItem } from 'src/app/typings/bookmarks_typings';
 const FlexContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    allign-items: center;
+    align-items: center;
 `;
 
 export type BoardItemProps = {

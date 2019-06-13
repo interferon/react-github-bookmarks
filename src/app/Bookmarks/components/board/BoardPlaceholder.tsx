@@ -2,7 +2,10 @@ import React from 'react';
 import { PlusIcon } from '../app_icons/icons';
 import styled from 'styled-components';
 
-const Placeholder = styled.div`display: flex;`;
+const Placeholder = styled.div`
+    max-height: 40px;
+    display: flex;
+`;
 
 type BoardPlaceholderProps = {
     placeholder: string,

@@ -8,12 +8,17 @@ import * as R from 'ramda';
 import styled from 'styled-components';
 import { Board, BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
 
-const BoardContainer = styled.div`border: 1px solid black;`
-const ItemsListContainer = styled.ul`min-height: 50px`
+const BoardContainer = styled.div`
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    width: 250px;
+`
+const ItemsListContainer = styled.ul`
+    min-height: 50px
+`
 const FlexContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    allign-items: center;
+    align-items: center;
 `;
 
 type RenderBoardProps = {

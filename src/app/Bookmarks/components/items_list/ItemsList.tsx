@@ -2,39 +2,48 @@ import React from 'react';
 import { Unpacked } from 'src/app/helpers/typings';
 import styled from 'styled-components';
 import * as R from 'ramda';
-import { AddedIcon, PlusIcon } from '../app_icons/icons';
-import { Board } from 'src/app/typings/bookmarks_typings';
+import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
+import { ListItem } from './ListItem';
 
-
-type Item = Unpacked<Board['items']>;
 
 type ItemsListProps = {
-    items: Item[],
-    is_item_added: (id: Item) => boolean
-    on_add_to_board: (item: Item) => void
-}
+    items: BoardItem[],
+    is_item_added: (id: BoardItem) => boolean
+    on_add_to_board: (item: BoardItem) => void
+};
+
+
+const ItemsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    max-height: 200px;
+    z-index: 30;
+    background-color: white;
+    overflow-y: scroll;
+    position: absolute; 
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 800px;
+    border: 1px solid black;
+`
 
 export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
-    const renderItem = (item: Item, index: number) => {
-        return <SearchItem key={index}>
-            <label>
-                {item.name}
-            </label>
+    return (
+        <ItemsContainer>
             {
-                props.is_item_added(item)
-                    ? <AddedIcon id={item.id}/>
-                    : <PlusIcon id={item.id} on_click={() => props.on_add_to_board(item)}/>
+                props.items.map(
+                    (item, i) =>
+                        <ListItem
+                            key={i}
+                            item={item}
+                            is_checked={props.is_item_added(item)}
+                            on_add={() => props.on_add_to_board(item)}
+                        />
+                )
             }
-        </SearchItem>
-    };
-    return <div>
-        {
-            props.items.map(renderItem)
-        }
-    </div>
+        </ItemsContainer>
+    );
 }
-
-export const SearchItem = styled.div`
-    display: flex;
-    align-items: center;
-`;

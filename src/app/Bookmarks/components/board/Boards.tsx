@@ -8,8 +8,7 @@ import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
 
 const FlexContainer = styled.div`
     display: flex;
-    justify-content: space-between;
-    allign-items: center;
+    justify-content: space-evenly;
 `;
 
 type BoardsProps = {
@@ -26,29 +25,26 @@ type BoardsProps = {
 };
 
 export const Boards = ({boards, handlers, new_board_name}: BoardsProps) => 
-    <div>
-        <h3>Boards</h3>
-        <FlexContainer>
-            {
-                boards.map(
-                    board =>
-                        <BoardComponent
-                            key={board.id}
-                            board={board}
-                            handlers={{
-                                on_board_remove: handlers.on_board_remove,
-                                on_board_item_remove: handlers.on_board_item_remove,
-                                on_item_changed_board: handlers.on_item_changed_board,
-                                on_board_items_sort: handlers.on_board_items_sort
-                            }}
-                        />
-                )
-            }
-            <BoardPlaceholder
-                new_board_name={new_board_name}
-                placeholder={'Enter Name'}
-                on_board_add={() => handlers.on_new_board_created({title: new_board_name})}
-                on_new_board_name_change={handlers.on_new_board_title_change}
-            />
-        </FlexContainer>
-    </div>;
+    <FlexContainer>
+        {
+            boards.map(
+                board =>
+                    <BoardComponent
+                        key={board.id}
+                        board={board}
+                        handlers={{
+                            on_board_remove: handlers.on_board_remove,
+                            on_board_item_remove: handlers.on_board_item_remove,
+                            on_item_changed_board: handlers.on_item_changed_board,
+                            on_board_items_sort: handlers.on_board_items_sort
+                        }}
+                    />
+            )
+        }
+        <BoardPlaceholder
+            new_board_name={new_board_name}
+            placeholder={'Enter Name'}
+            on_board_add={() => handlers.on_new_board_created({title: new_board_name})}
+            on_new_board_name_change={handlers.on_new_board_title_change}
+        />
+    </FlexContainer>
