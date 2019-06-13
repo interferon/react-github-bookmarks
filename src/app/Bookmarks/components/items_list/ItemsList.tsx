@@ -2,8 +2,8 @@ import React from 'react';
 import { Unpacked } from 'src/app/helpers/typings';
 import styled from 'styled-components';
 import { Board } from '../board/Boards';
-import { PlusIcon, AddedIcon } from '../icons/PlusIcon';
 import * as R from 'ramda';
+import { AddedIcon, PlusIcon } from '../app_icons/icons';
 
 
 type Item = Unpacked<Board['items']>;

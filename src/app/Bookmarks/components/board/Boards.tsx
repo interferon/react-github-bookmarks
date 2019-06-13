@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { GithubRepo } from 'src/app/git_hub_api/search_repos';
 import styled from 'styled-components';
-import { PlusIcon, RemoveIcon } from '../icons/PlusIcon';
 import { pick } from 'ramda';
-import { useDrag, useDrop, DropTargetMonitor, XYCoord } from 'react-dnd'
+import { useDrag, useDrop} from 'react-dnd'
+import { RemoveIcon, PlusIcon } from '../app_icons/icons';
 
 export type BoardItem = GithubRepo;
 
