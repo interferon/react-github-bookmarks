@@ -16,7 +16,7 @@ const BoardContainer = styled.div`
 const ItemsListContainer = styled.ul`
     min-height: 50px
 `
-const FlexContainer = styled.div`
+const BoardHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,10 +52,10 @@ export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Eleme
 
     return (
         <BoardContainer key={board.id}>
-            <FlexContainer>
+            <BoardHeader>
                 <label>{board.title}</label>
                 <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
-            </FlexContainer>
+            </BoardHeader>
             <ItemsListContainer innerRef={drop} style={canDrop ? { backgroundColor: "yellow" } : {}}>
                 {
                     board_items.map(
