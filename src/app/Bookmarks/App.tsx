@@ -10,7 +10,6 @@ import { ItemsList } from './components/items_list/ItemsList';
 import { Message } from './components/Message';
 import SearchBar from './components/search_bar/SearchBar';
 
-
 type OwnProps = typeof all_actions;
 
 type AppProps = BookmarkState & OwnProps;
@@ -24,8 +23,7 @@ class App extends React.Component<AppProps> {
         }
     }
     render() {
-        const {search, boards_settings, clear_search_result, operation} = this.props;
-        const search_repos = debounce(this.props.search_repos, 2000, false);
+        const {search, boards_settings, clear_search_result, operation, search_repos} = this.props;
         return (
             <div>
                 <SearchBar

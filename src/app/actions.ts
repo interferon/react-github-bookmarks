@@ -1,5 +1,5 @@
 import { BookmarksActions, BookmarkState } from "./reducer";
-import { search_repositories as search_items } from "./git_hub_api/search_repos";
+import { search_repositories, GithubRepo } from "./git_hub_api/search_repos";
 import { Unpacked } from "./helpers/typings";
 import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem, saveAllBoards } from "./storage/db";
 import { update } from "./helpers/update";
@@ -7,9 +7,19 @@ import { generate_board_id } from "./helpers/generateBoardId";
 import { reject } from "ramda";
 import { upsertAllBy } from "./helpers/ramda-helpers";
 import { Board, BoardItem } from "./typings/bookmarks_typings";
+import { debounce } from "./helpers/debounce";
+import { Either } from "fp-ts/lib/Either";
+import { BookmarksError } from "./helpers/fetch";
 
 export type BookmarksDispatch = (a: BookmarksActions) => void
 type ActionReturnType = (dispatch: BookmarksDispatch) => void;
+
+
+const fetch_items = (query: string, on_resolve: (a: Either<BookmarksError, GithubRepo[]>) => void) => {
+    search_repositories({ token: '' }, query).then(reposE => on_resolve(reposE))
+}
+
+const search_repos_debounced = debounce(fetch_items, 1500, false);
 
 export const search_repos = (query: string): ActionReturnType =>
     (dispatch: BookmarksDispatch): void => {
@@ -22,41 +32,40 @@ export const search_repos = (query: string): ActionReturnType =>
                 } 
             )
         );
-
-        search_items({ token: '' }, query)
-            .then(
-                reposE => {
-                    reposE.fold(
-                        (err) => {
-                            dispatch(
-                                createOperationStateAction(
-                                    {
-                                        message: err.message,
-                                        state: "fail",
-                                        type: 'search'
-                                    }
-                                )
-                            );
-                        },
-                        (repos) => {
-                            dispatch({
-                                type: 'SHOW_ITEMS',
-                                items: repos.filter(r => r.name.includes(query)),
-                                query
-                            });
-                            dispatch(
-                                createOperationStateAction(
-                                    {
-                                        message: "",
-                                        state: 'success',
-                                        type: "search"
-                                    }
-                                )
-                            );
-                        }
-                    )
-                }
-            )
+        search_repos_debounced(
+            query,
+            (reposE) => {
+                reposE.fold(
+                    (err) => {
+                        dispatch(
+                            createOperationStateAction(
+                                {
+                                    message: err.message,
+                                    state: "fail",
+                                    type: 'search'
+                                }
+                            )
+                        );
+                    },
+                    (repos) => {
+                        dispatch({
+                            type: 'SHOW_ITEMS',
+                            items: repos,
+                            query
+                        });
+                        dispatch(
+                            createOperationStateAction(
+                                {
+                                    message: "",
+                                    state: 'success',
+                                    type: "search"
+                                }
+                            )
+                        );
+                    }
+                )
+            }
+        )
     };
 
 export const add_new_board = (data: {title: string}): ActionReturnType => 
