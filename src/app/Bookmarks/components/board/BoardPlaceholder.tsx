@@ -20,6 +20,9 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
             value={props.new_board_name}
             placeholder={props.placeholder}
             onChange={(e) => props.on_new_board_name_change(e.target.value)}
+            onKeyDown={
+                (e) => props.new_board_name.length > 0 && e.key === 'Enter' && props.on_board_add()
+            }
         />
         <PlusIcon
             id={''}
