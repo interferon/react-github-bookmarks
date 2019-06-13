@@ -44,10 +44,16 @@ export type GithubRepo = {
   score: number;
 }
 
-export const search_repositories = (creds: {token: string}, query: string): Promise<Either<BookmarksError, GithubRepo[]>> => {
-    const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc`;
-    return fetch_json<GitHubSearchResp>(url, {})
-      .then(
-        respE => respE.map(_ => _.items.map(gr => update({id: `${gr.id}`}, gr)))
-      );
+export const search_repositories = (creds: { token: string }, query: string): Promise<Either<BookmarksError, GithubRepo[]>> => {
+  const url = `https://api.github.com/search/repositories?q=${query}&sort=stars&order=desc`;
+  return fetch_json<GitHubSearchResp>(url, {})
+    .then(
+      respE =>
+        respE.map(
+          resp =>
+            resp.items.map(
+              gr => update({ id: `${gr.id}` }, gr)
+            )
+        )
+    );
 }

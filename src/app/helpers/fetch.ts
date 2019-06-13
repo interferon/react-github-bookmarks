@@ -15,8 +15,8 @@ export function fetch_json<T>(url: string, init: RequestInit) : Promise<Either<B
                 resp.json().then(
                     data => 
                         `${resp.status}`.startsWith("2")
-                            ? either.right<BookmarksError,  T>(data as T)
-                            : either.left<BookmarksError,  T>({type : 'api_error', message : data.message || "Error has occured"})
+                            ? either.right<BookmarksError, T>(data as T)
+                            : either.left<BookmarksError, T>({type : 'api_error', message : data.message || "Error has occured"})
                 )
         )
 }
