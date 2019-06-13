@@ -71,7 +71,7 @@ export type BoardsProps = {
 const BoardItem = (data: BoardItemProps): JSX.Element => {
     const {board_id, on_item_remove, item, index, on_item_sort: moveCard} = data;
 
-    const [, drop] = useDrop<DragItem, any, any>({
+    const [_, drop] = useDrop<DragItem, any, any>({
         accept: "board_item",
         canDrop: () => false,
         hover: (dragged) => {
