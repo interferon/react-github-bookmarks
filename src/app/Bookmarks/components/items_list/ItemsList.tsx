@@ -28,7 +28,6 @@ export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
         </SearchItem>
     };
     return <div>
-        <h3>Search Items List</h3>
         {
             props.items.map(renderItem)
         }

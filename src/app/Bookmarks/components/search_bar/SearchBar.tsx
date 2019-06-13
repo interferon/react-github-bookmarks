@@ -1,8 +1,9 @@
 import React from 'react'
 
 type SearchBarProps = {
-    on_search: (text: string) => void 
-}
+    on_search: (text: string) => void,
+    status: 'loading' | 'none' 
+};
 
 export default class SearchBar extends React.Component<SearchBarProps> {
     render() {
@@ -14,6 +15,9 @@ export default class SearchBar extends React.Component<SearchBarProps> {
                         this.props.on_search(text);
                     }
                 }/>
+                {
+                    this.props.status === 'loading' ? 'Loading...' : ''
+                }
             </div>
         );
     }

@@ -1,4 +1,3 @@
-import Home from './Bookmarks/scenes/Overview/Overview'
 import App from './Bookmarks/App';
 
 type BookmarksRoute = {
@@ -7,10 +6,6 @@ type BookmarksRoute = {
 }
 
 export const routes: BookmarksRoute[] = [
-  {
-    path: '/browse',
-    component: Home
-  },
   {
     path: '/boards', 
     component: App

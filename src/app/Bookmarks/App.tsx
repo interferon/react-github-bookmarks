@@ -24,8 +24,8 @@ class App extends React.Component<AppProps> {
         }
     }
     render() {
-        const {search, boards_settings, clear_search_result} = this.props;
-        const search_repos = debounce(this.props.search_repos, 500, false);
+        const {search, boards_settings, clear_search_result, operation} = this.props;
+        const search_repos = debounce(this.props.search_repos, 10, false);
         return (
             <div>
                 <SearchBar
@@ -35,11 +35,11 @@ class App extends React.Component<AppProps> {
                                 ? search_repos(query)
                                 : clear_search_result(query)
                     }
+                    status ={ operation.state === 'in_progress' && operation.type === 'search' ? 'loading': 'none'}
                 />
                 {
-                    this.props.operation.state === 'in_progress' && this.props.operation.type === 'search'
-                        ? "Loading..."
-                        : <ItemsList
+                    search.search_result.length > 0 && operation.state === 'success' &&
+                        <ItemsList
                             items={search.search_result}
                             is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
                             on_add_to_board={
@@ -59,7 +59,7 @@ class App extends React.Component<AppProps> {
                         on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
                     }}
                 />
-                <Message operation={this.props.operation}/>
+                <Message operation={operation}/>
             </div>
         );
     };
