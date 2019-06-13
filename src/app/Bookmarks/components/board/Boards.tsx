@@ -21,6 +21,13 @@ type BoardPlaceholderProps = {
     on_new_board_name_change: (name: string) => void
 };
 
+type BoardItemProps = {
+    on_item_remove: (id: string) => void,
+    item: BoardItem,
+    board_id: Board['id'],
+    index: number
+};
+
 
 
 const Placeholder = styled.div`display: flex;`;
@@ -52,25 +59,27 @@ export type BoardsProps = {
     }
 };
 
-const RenderBoardItem = (data: {on_item_remove: (id: string) => void, item: BoardItem, board_id: Board['id'], index: number}): JSX.Element => {
-    const {board_id, on_item_remove, item} = data;
+const BoardItem = (data: BoardItemProps): JSX.Element => {
+    const {board_id, on_item_remove, item, index} = data;
 
-    
-    const [, drop] = useDrop<DragItem, any, any>({
-        accept: "board_item",
-        canDrop: () => false,
-        hover: (item) => {
-          console.log(item);
-        },
-      })
-    const [, drag] = useDrag<DragItem, any, any>(
+    // const [, drop] = useDrop<DragItem, any, any>({
+    //     accept: "board_item",
+    //     canDrop: () => false,
+    //     hover: (dragged) => {
+    //         if (dragged.id !== item.id) {
+    //             moveCard(dragged.id, index)
+    //         }
+    //     }
+    // })
+    const [{isDragging}, drag] = useDrag<DragItem, any, any>(
         {
-            item: { id: item.id, type: 'board_item', board_id, index: data.index}
+            item: { id: item.id, type: 'board_item', board_id, index: data.index},
+            collect: monitor => ({ isDragging: monitor.isDragging() })
         }
     );
     return (
-        <FlexContainer key={item.id} innerRef={node => drag(drop(node))}>
-            <li>{item.name}</li>
+        <FlexContainer key={item.id} innerRef={node => drag(node)}>
+            <li style={{opacity: isDragging ? 0.1 : 1}}>{item.name}</li>
             <RemoveIcon on_click={(id) => on_item_remove(id)} id={item.id}/>
         </FlexContainer>
     );
@@ -83,15 +92,12 @@ const RenderBoard = (
     }
 ): JSX.Element => {
     const {handlers, board} = data;
-    const [{canDrop, isOver}, drop] = useDrop<DragItem, any, any>({
+    const [{canDrop}, drop] = useDrop<DragItem, any, any>({
         accept: 'board_item',
         drop: (i) => {
             handlers.on_item_changed_board({from_board_id: i.board_id, item_id: i.id, to_board_id: board.id})
         },
-        canDrop: (item) => {
-            return true;
-            //return item.board_id !== data.board.id
-        },
+        canDrop: (item) => item.board_id !== data.board.id,
         collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop()})
     });
 
@@ -108,17 +114,17 @@ const RenderBoard = (
                 {
                     board.items.map(
                         (board_item, i) =>
-                            <RenderBoardItem
+                            <BoardItem
                                 key={board_item.id}
                                 index={i}
                                 item={board_item}
                                 board_id={board.id}
                                 on_item_remove={
                                     (item_id) =>
-                                    handlers.on_board_item_remove({
-                                        board_id: board.id,
-                                        item_id
-                                    })
+                                        handlers.on_board_item_remove({
+                                            board_id: board.id,
+                                            item_id
+                                        })
                                 }
                             />
                     )
