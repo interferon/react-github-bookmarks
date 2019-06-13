@@ -72,16 +72,22 @@ export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board):
         set_operation_state({
             message: 'Saving boards',
             state: "in_progress",
-            type: 'save_item'
+            type: 'add_item_to_board'
         })(dispatch);
 
         saveBoard(update({ items: board.items.concat(item) }, board))
             .then(
-                board =>
+                board => {
                     dispatch({
                         type: 'UPDATE_BOARDS',
                         boards: [board]
-                    })
+                    });
+                    set_operation_state({
+                        message: 'Board added',
+                        state: "success",
+                        type: 'add_item_to_board'
+                    })(dispatch);
+                }
             )
         
     };
@@ -94,7 +100,16 @@ export const load_boards = (): ActionReturnType =>
             type: 'load_boards'
         })(dispatch);
 
-        getSavedBoards().then(boards => dispatch({ type: 'SET_BOARDS', boards }));
+        getSavedBoards().then(
+            boards => {
+                dispatch({ type: 'SET_BOARDS', boards });
+                set_operation_state({
+                    message: 'Boards laoded',
+                    state: "success",
+                    type: 'load_boards'
+                })(dispatch);
+            }
+        );
     };
 
 export const remove_board = (id: string): ActionReturnType => 
@@ -102,11 +117,18 @@ export const remove_board = (id: string): ActionReturnType =>
         set_operation_state({
             message: "Removing board",
             state: 'in_progress',
-            type: "none"
+            type: "board_remove"
         });
 
         removeBoardById(id).then(
-            boards => dispatch({ type: 'SET_BOARDS', boards })
+            boards => {
+                dispatch({ type: 'SET_BOARDS', boards });
+                set_operation_state({
+                    message: 'Board removed',
+                    state: "success",
+                    type: 'board_remove'
+                })(dispatch);
+            }
         );
 
     };
@@ -116,10 +138,19 @@ export const remove_board_item = (params: {board_id: string, item_id: string}): 
         set_operation_state({
             message: "Removing board item",
             state: 'in_progress',
-            type: "none"
+            type: "item_remove"
         })(dispatch);
 
-        removeBoardItem(params).then(boards => dispatch({ type: 'SET_BOARDS', boards }));
+        removeBoardItem(params).then(
+            boards => {
+                dispatch({ type: 'SET_BOARDS', boards });
+                set_operation_state({
+                    message: "Removing board item",
+                    state: 'success',
+                    type: "item_remove"
+                })(dispatch);
+            }
+        );
 
     };
 
@@ -156,12 +187,28 @@ export const change_item_board = (params: {from_board_id: Board['id'], to_board_
         );
 
         saveAllBoards(updated_boards).then(
-            boards => dispatch({ type: 'SET_BOARDS', boards})
+            boards => {
+                dispatch({ type: 'SET_BOARDS', boards});
+                set_operation_state({
+                    message: "Board changed",
+                    state: 'success',
+                    type: "board_change"
+                })(dispatch);
+            }
         )
     }
 
 export const sort_board_items = (board: Board, all_boards: Board[]) =>
     (dispatch: BookmarksDispatch) => {
         const updated_boards = upsertAllBy(_ => _.id, [board], all_boards);
-        saveAllBoards(updated_boards).then(boards => dispatch({ type: 'SET_BOARDS', boards}))
+        saveAllBoards(updated_boards).then(
+            boards => {
+                dispatch({ type: 'SET_BOARDS', boards});
+                set_operation_state({
+                    message: "Board items sorted",
+                    state: 'success',
+                    type: "sort_board_items"
+                })(dispatch);
+            }
+        );
     }
