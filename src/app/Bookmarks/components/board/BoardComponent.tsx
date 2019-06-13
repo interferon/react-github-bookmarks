@@ -47,7 +47,6 @@ export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Eleme
         const moved_item_index = R.findIndex(_ => _.id === id, board_items);
         const updated_items = swap(moved_item_index, atIndex, board_items);
         setBoardItems(updated_items);
-        handlers.on_board_items_sort(update({ items: updated_items }, board));
     };
 
     return (
@@ -73,6 +72,9 @@ export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Eleme
                                         })
                                 }
                                 on_item_sort={sort_board_items}
+                                on_drop={
+                                    () => handlers.on_board_items_sort(update({ items: board_items }, board))
+                                }
                             />
                     )
                 }

@@ -16,19 +16,23 @@ export type BoardItemProps = {
     item: BoardItem,
     board_id: Board['id'],
     index: number,
-    on_item_sort: (item_id: BoardItem['id'], to: number) => void
+    on_item_sort: (item_id: BoardItem['id'], to: number) => void,
+    on_drop: () => void
 };
 
-export const BoardItemComponent = ({ board_id, on_item_remove, item, index, on_item_sort }: BoardItemProps): JSX.Element => {
+export const BoardItemComponent = ({ board_id, on_item_remove, item, index, on_item_sort, on_drop}: BoardItemProps): JSX.Element => {
     // hook for sorting
     const [_, drop] = useDrop<DragItem, any, any>(
         {
             accept: "board_item",
-            canDrop: () => false,
+            canDrop: () => true,
             hover: (dragged_item) => {
                 if (dragged_item.id !== item.id) {
                     on_item_sort(dragged_item.id, index);
                 }
+            },
+            drop: () => {
+                on_drop()
             }
         }
     );
