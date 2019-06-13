@@ -12,7 +12,6 @@ const FlexContainer = styled.div`
     allign-items: center;
 `;
 
-
 type BoardsProps = {
     boards: Board[],
     new_board_name: string
@@ -26,30 +25,30 @@ type BoardsProps = {
     }
 };
 
-export const Boards = (props: BoardsProps) => 
+export const Boards = ({boards, handlers, new_board_name}: BoardsProps) => 
     <div>
         <h3>Boards</h3>
         <FlexContainer>
             {
-                props.boards.map(
+                boards.map(
                     board =>
                         <BoardComponent
                             key={board.id}
                             board={board}
-                            handlers={
-                                pick(
-                                    ['on_board_remove', 'on_board_item_remove', 'on_item_changed_board', 'on_board_items_sort'],
-                                    props.handlers
-                                )
-                            }
+                            handlers={{
+                                on_board_remove: handlers.on_board_remove,
+                                on_board_item_remove: handlers.on_board_item_remove,
+                                on_item_changed_board: handlers.on_item_changed_board,
+                                on_board_items_sort: handlers.on_board_items_sort
+                            }}
                         />
                 )
             }
             <BoardPlaceholder
-                new_board_name={props.new_board_name}
+                new_board_name={new_board_name}
                 placeholder={'Enter Name'}
-                on_board_add={() => props.handlers.on_new_board_created({title: props.new_board_name})}
-                on_new_board_name_change={props.handlers.on_new_board_title_change}
+                on_board_add={() => handlers.on_new_board_created({title: new_board_name})}
+                on_new_board_name_change={handlers.on_new_board_title_change}
             />
         </FlexContainer>
     </div>;

@@ -3,6 +3,7 @@ import { PlusIcon } from '../app_icons/icons';
 import styled from 'styled-components';
 
 const Placeholder = styled.div`display: flex;`;
+
 type BoardPlaceholderProps = {
     placeholder: string,
     new_board_name: string,
