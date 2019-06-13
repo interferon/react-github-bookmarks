@@ -25,15 +25,23 @@ class App extends React.Component<AppProps> {
     }
     render() {
         const {search, boards_settings, clear_search_result, operation} = this.props;
-        const search_repos = debounce(this.props.search_repos, 10, false);
+        const search_repos = debounce(this.props.search_repos, 2000, false);
         return (
             <div>
                 <SearchBar
                     on_search={
-                        (query: string) =>
-                            query.length > 2
-                                ? search_repos(query)
-                                : clear_search_result(query)
+                        (query: string) => {
+                            if(query.length > 2){
+                                this.props.set_operation_state({
+                                    message: '',
+                                    state: 'in_progress',
+                                    type: 'search'
+                                });
+                                search_repos(query)
+                            } else {
+                                clear_search_result(query)
+                            }
+                        }
                     }
                     status ={ operation.state === 'in_progress' && operation.type === 'search' ? 'loading': 'none'}
                 />

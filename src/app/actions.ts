@@ -13,13 +13,14 @@ type ActionReturnType = (dispatch: BookmarksDispatch) => void;
 
 export const search_repos = (query: string): ActionReturnType =>
     (dispatch: BookmarksDispatch): void => {
-        set_operation_state(
-            dispatch,
-            {
-                message: '',
-                state: "in_progress",
-                type: 'search'
-            }
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: '',
+                    state: "in_progress",
+                    type: 'search'
+                } 
+            )
         );
 
         search_items({ token: '' }, query)
@@ -27,13 +28,14 @@ export const search_repos = (query: string): ActionReturnType =>
                 reposE => {
                     reposE.fold(
                         (err) => {
-                            set_operation_state(
-                                dispatch,
-                                {
-                                    message: err.message,
-                                    state: "fail",
-                                    type: 'search'
-                                }
+                            dispatch(
+                                createOperationStateAction(
+                                    {
+                                        message: err.message,
+                                        state: "fail",
+                                        type: 'search'
+                                    }
+                                )
                             );
                         },
                         (repos) => {
@@ -42,14 +44,15 @@ export const search_repos = (query: string): ActionReturnType =>
                                 items: repos.filter(r => r.name.includes(query)),
                                 query
                             });
-                            set_operation_state(
-                                dispatch,
-                                {
-                                    message: "",
-                                    state: 'success',
-                                    type: "search"
-                                }
-                            )
+                            dispatch(
+                                createOperationStateAction(
+                                    {
+                                        message: "",
+                                        state: 'success',
+                                        type: "search"
+                                    }
+                                )
+                            );
                         }
                     )
                 }
@@ -78,13 +81,14 @@ export const change_new_board_title = (text: string): ActionReturnType =>
 
 export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board): ActionReturnType =>
     (dispatch: BookmarksDispatch): void => {
-        set_operation_state(
-            dispatch,
-            {
-                message: 'Saving boards',
-                state: "in_progress",
-                type: 'add_item_to_board'
-            }
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: 'Saving boards',
+                    state: "in_progress",
+                    type: 'add_item_to_board'
+                }
+            )
         );
 
         saveBoard(update({ items: board.items.concat(item) }, board))
@@ -94,13 +98,14 @@ export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board):
                         type: 'UPDATE_BOARDS',
                         boards: [board]
                     });
-                    set_operation_state(
-                        dispatch,
-                        {
-                            message: 'Board added',
-                            state: "success",
-                            type: 'add_item_to_board'
-                        }
+                    dispatch(
+                        createOperationStateAction(
+                            {
+                                message: 'Board added',
+                                state: "success",
+                                type: 'add_item_to_board'
+                            }
+                        )
                     );
                 }
             )
@@ -109,25 +114,27 @@ export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board):
 
 export const load_boards = (): ActionReturnType =>
     (dispatch: BookmarksDispatch): void => {
-        set_operation_state(
-            dispatch,
-            {
-                message: 'Loading boards',
-                state: "in_progress",
-                type: 'load_boards'
-            }
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: 'Loading boards',
+                    state: "in_progress",
+                    type: 'load_boards'
+                }
+            )
         );
 
         getSavedBoards().then(
             boards => {
                 dispatch({ type: 'SET_BOARDS', boards });
-                set_operation_state(
-                    dispatch,
-                    {
-                        message: 'Boards laoded',
-                        state: "success",
-                        type: 'load_boards'
-                    }
+                dispatch(
+                    createOperationStateAction(
+                        {
+                            message: 'Boards laoded',
+                            state: "success",
+                            type: 'load_boards'
+                        }
+                    )
                 );
             }
         );
@@ -135,25 +142,27 @@ export const load_boards = (): ActionReturnType =>
 
 export const remove_board = (id: string): ActionReturnType => 
     (dispatch: BookmarksDispatch): void => {
-        set_operation_state(
-            dispatch,
-            {
-                message: "Removing board",
-                state: 'in_progress',
-                type: "board_remove"
-            }
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: "Removing board",
+                    state: 'in_progress',
+                    type: "board_remove"
+                }
+            )
         );
 
         removeBoardById(id).then(
             boards => {
                 dispatch({ type: 'SET_BOARDS', boards });
-                set_operation_state(
-                    dispatch,
-                    {
-                        message: 'Board removed',
-                        state: "success",
-                        type: 'board_remove'
-                    }
+                dispatch(
+                    createOperationStateAction(
+                        {
+                            message: 'Board removed',
+                            state: "success",
+                            type: 'board_remove'
+                        }
+                    )
                 );
             }
         );
@@ -162,33 +171,35 @@ export const remove_board = (id: string): ActionReturnType =>
 
 export const remove_board_item = (params: {board_id: string, item_id: string}): ActionReturnType => 
     (dispatch: BookmarksDispatch): void => {
-        set_operation_state(
-            dispatch,
-            {
-                message: "Removing board item",
-                state: 'in_progress',
-                type: "item_remove"
-            }
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: "Removing board item",
+                    state: 'in_progress',
+                    type: "item_remove"
+                }
+            )
         );
 
         removeBoardItem(params).then(
             boards => {
                 dispatch({ type: 'SET_BOARDS', boards });
-                set_operation_state(
-                    dispatch,
-                    {
-                        message: "Removing board item",
-                        state: 'success',
-                        type: "item_remove"
-                    }
+                dispatch(
+                    createOperationStateAction(
+                        {
+                            message: "Removing board item",
+                            state: 'success',
+                            type: "item_remove"
+                        }
+                    )
                 );
             }
         );
 
     };
 
-export const set_operation_state = (dispatch: BookmarksDispatch, params: BookmarkState['operation']): void => 
-    {
+export const set_operation_state = (params: BookmarkState['operation']): ActionReturnType => 
+    (dispatch: BookmarksDispatch) => {
         dispatch({
             type: "SET_OPERATION_STATE",
             params
@@ -222,13 +233,14 @@ export const change_item_board = (params: {from_board_id: Board['id'], to_board_
         saveAllBoards(updated_boards).then(
             boards => {
                 dispatch({ type: 'SET_BOARDS', boards});
-                set_operation_state(
-                    dispatch,
-                    {
-                        message: "Board changed",
-                        state: 'success',
-                        type: "board_change"
-                    }
+                dispatch(
+                    createOperationStateAction(
+                        {
+                            message: "Board changed",
+                            state: 'success',
+                            type: "board_change"
+                        }
+                    )
                 );
             }
         )
@@ -240,14 +252,20 @@ export const sort_board_items = (board: Board, all_boards: Board[]) =>
         saveAllBoards(updated_boards).then(
             boards => {
                 dispatch({ type: 'SET_BOARDS', boards});
-                set_operation_state(
-                    dispatch,
-                    {
-                        message: "Board items sorted",
-                        state: 'success',
-                        type: "sort_board_items"
-                    }
+                dispatch(
+                    createOperationStateAction(
+                        {
+                            message: "Board items sorted",
+                            state: 'success',
+                            type: "sort_board_items"
+                        }
+                    )
                 );
             }
         );
     }
+
+const createOperationStateAction = (params: BookmarkState['operation']) : BookmarksActions => ({
+    type: "SET_OPERATION_STATE",
+    params
+})
