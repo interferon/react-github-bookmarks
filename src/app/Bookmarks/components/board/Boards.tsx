@@ -9,6 +9,7 @@ import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
 const FlexContainer = styled.div`
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
 `;
 
 type BoardsProps = {

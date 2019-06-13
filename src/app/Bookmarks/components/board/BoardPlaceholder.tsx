@@ -5,6 +5,8 @@ import styled from 'styled-components';
 const Placeholder = styled.div`
     max-height: 40px;
     display: flex;
+    min-width: 250px;
+    margin: 20px;
 `;
 
 type BoardPlaceholderProps = {
