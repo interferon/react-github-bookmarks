@@ -8,8 +8,8 @@ import * as R from 'ramda';
 import styled from 'styled-components';
 import { Board, BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
 
-const BoardCont = styled.div`border: 1px solid black;`
-const ItemsList = styled.ul`min-height: 50px`
+const BoardContainer = styled.div`border: 1px solid black;`
+const ItemsListContainer = styled.ul`min-height: 50px`
 const FlexContainer = styled.div`
     display: flex;
     justify-content: space-between;
@@ -46,12 +46,12 @@ export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Eleme
     };
 
     return (
-        <BoardCont key={board.id}>
+        <BoardContainer key={board.id}>
             <FlexContainer>
                 <label>{board.title}</label>
                 <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
             </FlexContainer>
-            <ItemsList innerRef={drop} style={canDrop ? { backgroundColor: "yellow" } : {}}>
+            <ItemsListContainer innerRef={drop} style={canDrop ? { backgroundColor: "yellow" } : {}}>
                 {
                     board_items.map(
                         (board_item, i) =>
@@ -71,7 +71,7 @@ export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Eleme
                             />
                     )
                 }
-            </ItemsList>
-        </BoardCont>
+            </ItemsListContainer>
+        </BoardContainer>
     );
 };
