@@ -55,13 +55,7 @@ class App extends React.Component<AppProps> {
                         on_new_board_created: this.props.add_new_board,
                         on_board_item_remove: this.props.remove_board_item,
                         on_board_remove: this.props.remove_board,
-                        on_item_changed_board:
-                            (params) =>
-                                this.props.change_item_board(
-                                    params,
-                                    this.props.boards_settings.boards
-                                )
-                        ,
+                        on_item_changed_board: (params) => this.props.change_item_board(params, this.props.boards_settings.boards),
                         on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
                     }}
                 />

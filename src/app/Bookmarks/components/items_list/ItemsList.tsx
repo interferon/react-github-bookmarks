@@ -1,9 +1,9 @@
 import React from 'react';
 import { Unpacked } from 'src/app/helpers/typings';
 import styled from 'styled-components';
-import { Board } from '../board/Boards';
 import * as R from 'ramda';
 import { AddedIcon, PlusIcon } from '../app_icons/icons';
+import { Board } from 'src/app/typings/bookmarks_typings';
 
 
 type Item = Unpacked<Board['items']>;

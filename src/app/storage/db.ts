@@ -1,10 +1,10 @@
-import { Board } from "../Bookmarks/components/board/Boards";
 import { storage } from "./storage";
 import { upsertBy, upsertAllBy } from "../helpers/ramda-helpers";
 import { update } from "../helpers/update";
 import { reject } from "ramda";
 import { generate_board_id } from "../helpers/generateBoardId";
 import * as R from 'ramda';
+import { Board } from "../typings/bookmarks_typings";
 
 export const saveAllBoards = (boards: Board[]): Promise<Board[]> => storage.save('boards', boards);
 

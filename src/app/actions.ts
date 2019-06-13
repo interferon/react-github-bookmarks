@@ -1,12 +1,12 @@
 import { BookmarksActions, BookmarkState } from "./reducer";
 import { search_repositories as search_items } from "./git_hub_api/search_repos";
-import { Board, BoardItem} from "./Bookmarks/components/board/Boards";
 import { Unpacked } from "./helpers/typings";
 import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem, saveAllBoards } from "./storage/db";
 import { update } from "./helpers/update";
 import { generate_board_id } from "./helpers/generateBoardId";
 import { reject } from "ramda";
 import { upsertAllBy } from "./helpers/ramda-helpers";
+import { Board, BoardItem } from "./typings/bookmarks_typings";
 
 export type BookmarksDispatch = (a: BookmarksActions) => void
 type ActionReturnType = (dispatch: BookmarksDispatch) => void;

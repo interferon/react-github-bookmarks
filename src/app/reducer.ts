@@ -1,9 +1,9 @@
 // @flow
 import { update } from './helpers/update';
-import { Board } from './Bookmarks/components/board/Boards';
 import { Unpacked } from './helpers/typings';
 import { upsertAllBy } from './helpers/ramda-helpers';
 import * as R from 'ramda';
+import { Board } from './typings/bookmarks_typings';
 
 export type BookmarkState = {
     boards_settings: {
