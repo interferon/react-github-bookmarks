@@ -1,14 +1,14 @@
+import * as R from 'ramda';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as all_actions from '../actions';
 import { debounce } from '../helpers/debounce';
 import { BookmarkState } from '../reducer';
+import { Boards } from './components/board/Boards';
 import { ItemsList } from './components/items_list/ItemsList';
 import { Message } from './components/Message';
 import SearchBar from './components/search_bar/SearchBar';
-import { Boards } from './components/board/Boards';
-import { merge } from 'ramda';
 
 
 type OwnProps = typeof all_actions;
@@ -41,7 +41,7 @@ class App extends React.Component<AppProps> {
                         ? "Loading..."
                         : <ItemsList
                             items={search.search_result}
-                            added_to_board_ids={search.added_items_ids}
+                            is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
                             on_add_to_board={
                                 (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
                             }
@@ -52,7 +52,7 @@ class App extends React.Component<AppProps> {
                     new_board_name={boards_settings.new_board_name}
                     handlers={{
                         on_new_board_title_change: this.props.change_new_board_title,
-                        on_new_board: this.props.add_new_board,
+                        on_new_board_created: this.props.add_new_board,
                         on_board_item_remove: this.props.remove_board_item,
                         on_board_remove: this.props.remove_board,
                         on_item_changed_board:
@@ -62,7 +62,7 @@ class App extends React.Component<AppProps> {
                                     this.props.boards_settings.boards
                                 )
                         ,
-                        on_board_items_sort: this.props.sort_board_items
+                        on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
                     }}
                 />
                 <Message operation={this.props.operation}/>

@@ -10,7 +10,7 @@ type Item = Unpacked<Board['items']>;
 
 type ItemsListProps = {
     items: Item[],
-    added_to_board_ids: Item['id'][]
+    is_item_added: (id: Item) => boolean
     on_add_to_board: (item: Item) => void
 }
 
@@ -21,7 +21,7 @@ export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
                 {item.name}
             </label>
             {
-                R.includes(item.id, props.added_to_board_ids)
+                props.is_item_added(item)
                     ? <AddedIcon id={item.id}/>
                     : <PlusIcon id={item.id} on_click={() => props.on_add_to_board(item)}/>
             }
@@ -35,7 +35,7 @@ export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
     </div>
 }
 
-const SearchItem = styled.div`
+export const SearchItem = styled.div`
     display: flex;
     align-items: center;
 `;

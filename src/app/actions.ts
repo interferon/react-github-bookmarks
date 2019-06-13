@@ -142,28 +142,26 @@ export const clear_search_result = (query: string) =>
 
 export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}, all_boards: Board[]) =>
     (dispatch: BookmarksDispatch) => {
-        const from_board = all_boards.find(b => b.id === params.from_board_id);
-        const to_board = all_boards.find(b => b.id === params.to_board_id);
+        const from_board = all_boards.filter(b => b.id === params.from_board_id)[0];
+        const to_board = all_boards.filter(b => b.id === params.to_board_id)[0];
         
-        if(from_board && to_board) {
-            const items_to_move = from_board.items.filter(_ => _.id === params.item_id)
-            const updated_boards = upsertAllBy(
-                _ => _.id,
-                [
-                    update({items: reject(_ => _.id === params.item_id, from_board.items)}, from_board),
-                    update({items: to_board.items.concat(items_to_move)}, to_board)
-                ],
-                all_boards
-            );
+        const items_to_move = from_board.items.filter(_ => _.id === params.item_id)
+        const updated_boards = upsertAllBy(
+            _ => _.id,
+            [
+                update({items: reject(_ => _.id === params.item_id, from_board.items)}, from_board),
+                update({items: to_board.items.concat(items_to_move)}, to_board)
+            ],
+            all_boards
+        );
 
-            saveAllBoards(updated_boards).then(
-                boards => dispatch({ type: 'SET_BOARDS', boards})
-            )
-        }
+        saveAllBoards(updated_boards).then(
+            boards => dispatch({ type: 'SET_BOARDS', boards})
+        )
     }
 
-export const sort_board_items = (params: {board_id: Board['id'], order: BoardItem['id'][]}) =>
+export const sort_board_items = (board: Board, all_boards: Board[]) =>
     (dispatch: BookmarksDispatch) => {
-        console.log(params)
-        // dispatch({ type: 'SET_BOARDS', boards : []})
+        const updated_boards = upsertAllBy(_ => _.id, [board], all_boards);
+        saveAllBoards(updated_boards).then(boards => dispatch({ type: 'SET_BOARDS', boards}))
     }
