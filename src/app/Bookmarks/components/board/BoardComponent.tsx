@@ -13,6 +13,7 @@ const BoardContainer = styled.div`
     min-width: 250px;
     margin: 20px;
     padding: 10px;
+    border-radius: 5px;
 `
 const ItemsListContainer = styled.ul`
     min-height: 50px
