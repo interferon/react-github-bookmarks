@@ -6,8 +6,6 @@ import { generate_board_id } from "../helpers/generateBoardId";
 import * as R from 'ramda';
 import { Board } from "../typings/bookmarks_typings";
 
-export const saveAllBoards = (boards: Board[]): Promise<Board[]> => storage.save('boards', boards);
-
 export const saveBoard = (board: Board): Promise<Board> =>
     getSavedBoards().then(all_boards => saveAllBoards(upsertBy(b => b.id, board, all_boards)).then(_ => board));
 
@@ -28,6 +26,10 @@ export const removeBoardItem = (params: { board_id: string, item_id: string }): 
         )
         .then(saveAllBoards);
 
+
+export const saveAllBoards = (boards: Board[]): Promise<Board[]> => storage.save('boards', boards);
+
 export const getSavedBoards = (): Promise<Board[]> =>
-    storage.load<Board[] | null>('boards')
+    storage
+        .load<Board[] | null>('boards')
         .then(bs => bs ? bs : saveAllBoards([{ id: generate_board_id(), items: [], title: "Common board" }]));

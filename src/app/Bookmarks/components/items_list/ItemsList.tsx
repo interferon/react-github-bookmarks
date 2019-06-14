@@ -1,9 +1,8 @@
 import React from 'react';
-import { Unpacked } from 'src/app/helpers/typings';
+import { BoardItem } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
-import * as R from 'ramda';
-import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
 import { ListItem } from './ListItem';
+import { useComponentVisible } from 'src/app/helpers/useComponentVisible';
 
 
 type ItemsListProps = {
@@ -31,19 +30,22 @@ const ItemsContainer = styled.div`
 `
 
 export const ItemsList  = (props: ItemsListProps) : JSX.Element =>  {
-    return (
-        <ItemsContainer>
-            {
-                props.items.map(
-                    (item, i) =>
-                        <ListItem
-                            key={i}
-                            item={item}
-                            is_checked={props.is_item_added(item)}
-                            on_add={() => props.on_add_to_board(item)}
-                        />
-                )
-            }
-        </ItemsContainer>
-    );
+    const { ref, isComponentVisible } = useComponentVisible(true);
+    
+    return isComponentVisible
+        ? <ItemsContainer ref={ref}>
+                {
+                    props.items.map(
+                        (item, i) =>
+                            <ListItem
+                                key={i}
+                                item={item}
+                                is_checked={props.is_item_added(item)}
+                                on_add={() => props.on_add_to_board(item)}
+                            />
+                    )
+                }
+            </ItemsContainer>
+        : <div></div>
+    ;
 }
