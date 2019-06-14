@@ -67,7 +67,7 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
                 <label>{board.title}</label>
                 <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
             </BoardHeader>
-            <ItemsListContainer innerRef={drop} style={canDrop ? { backgroundColor: "yellow" } : {}}>
+            <ItemsListContainer innerRef={drop}>
                 {
                     board_items.map(
                         (board_item, i) =>
