@@ -49,9 +49,9 @@ export const BoardItemComponent = ({ on_item_remove, item, index, on_item_sort, 
     return (
         <FlexContainer key={item.id}  innerRef={node => drag(drop(node))}>
 
-            <li style={{ opacity: isDragging ? 0.08 : 1 }}>
+            <div style={{ opacity: isDragging ? 0.08 : 1 }}>
                 {item.name}
-            </li>
+            </div>
 
             <RemoveIcon
                 on_click={(id) => on_item_remove(id)}

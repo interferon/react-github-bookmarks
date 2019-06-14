@@ -10,19 +10,26 @@ import { Board, BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
 
 const BoardContainer = styled.div`
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-    min-width: 250px;
+    width: 350px;
     margin: 20px;
-    padding: 10px;
     border-radius: 5px;
 `
 const ItemsListContainer = styled.ul`
-    min-height: 50px
+    min-height: 50px;
+    padding: 10px;
 `
 const BoardHeader = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid #8080805e;
+    padding: 10px;
 `;
+
+const BoardLabel = styled.label`
+    font-size: 25px;
+    font-weight: bold;
+`
 
 type RenderBoardProps = {
     handlers: {
@@ -65,7 +72,7 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
     return (
         <BoardContainer key={board.id}>
             <BoardHeader>
-                <label>{board.title}</label>
+                <BoardLabel>{board.title}</BoardLabel>
                 <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
             </BoardHeader>
             <ItemsListContainer innerRef={drop}>
