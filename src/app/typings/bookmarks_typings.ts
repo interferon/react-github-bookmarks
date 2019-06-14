@@ -5,7 +5,6 @@ export type BoardItem = GithubRepo;
 export type DragItem = {
     index: number,
     id: string,
-    board_id: string,
     type: 'board_item'
 };
 

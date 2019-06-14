@@ -30,16 +30,25 @@ type RenderBoardProps = {
         on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) => void,
         on_board_items_sort: (board: Board) => void
     },
+    get_board_id_for_item: (id: BoardItem['id']) => string
     board: Board
 };
 
-export const BoardComponent = ({ handlers, board }: RenderBoardProps): JSX.Element => {
+export const BoardComponent = ({ handlers, board, get_board_id_for_item}: RenderBoardProps): JSX.Element => {
     const [board_items, setBoardItems] = useState(board.items);
 
-    const [{ canDrop }, drop] = useDrop<DragItem, any, any>({
+    const [{ canDrop, isOver}, drop] = useDrop<DragItem, void, { canDrop: boolean, isOver: boolean}>({
         accept: 'board_item',
-        drop: (i) => handlers.on_item_changed_board({ from_board_id: i.board_id, item_id: i.id, to_board_id: board.id }),
-        canDrop: (item) => item.board_id !== board.id,
+        drop: (i) => {
+            handlers.on_item_changed_board({ from_board_id: get_board_id_for_item(i.id), item_id: i.id, to_board_id: board.id })
+        },
+        hover: (i) => {
+            if(get_board_id_for_item(i.id) !== board.id) {
+                R.findIndex(_ => _.id === i.id, board_items) === -1
+                    && handlers.on_item_changed_board({ from_board_id: get_board_id_for_item(i.id), item_id: i.id, to_board_id: board.id })
+            }
+        },
+        canDrop: (i) => get_board_id_for_item(i.id) !== board.id,
         collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop() })
     });
 

@@ -40,7 +40,7 @@ export const BoardItemComponent = ({ board_id, on_item_remove, item, index, on_i
     // hook for dragging
     const [{ isDragging }, drag] = useDrag<DragItem, any, any>(
         {
-            item: { id: item.id, type: 'board_item', board_id, index },
+            item: { id: item.id, type: 'board_item', index },
             collect: (monitor) =>
                 ({ isDragging: monitor.isDragging() })
         }
