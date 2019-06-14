@@ -44,10 +44,10 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
         },
         hover: (i) => {
             const from_board_id = get_board_id_for_item(i.id);
-            if(from_board_id !== board.id) {
-                R.findIndex(_ => _.id === i.id, board_items) === -1
-                    && handlers.on_item_changed_board({ from_board_id, item_id: i.id, to_board_id: board.id })
-            }
+            from_board_id !== board.id
+                && R.findIndex(_ => _.id === i.id, board_items) === -1
+                && handlers.on_item_changed_board({ from_board_id, item_id: i.id, to_board_id: board.id })
+            
         },
         canDrop: (i) => get_board_id_for_item(i.id) !== board.id,
         collect: (monitor) => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop() })
@@ -75,7 +75,6 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
                                 key={board_item.id}
                                 index={i}
                                 item={board_item}
-                                board_id={board.id}
                                 on_item_remove={
                                     (item_id) =>
                                         handlers.on_board_item_remove({
