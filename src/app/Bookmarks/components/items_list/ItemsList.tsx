@@ -2,7 +2,7 @@ import React from 'react';
 import { BoardItem } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
 import { ListItem } from './ListItem';
-import { useComponentVisible } from 'src/app/helpers/useComponentVisible';
+import { useComponentVisible } from '../../../helpers/useComponentVisible';
 
 
 type ItemsListProps = {
