@@ -5,6 +5,7 @@ import { pick } from 'ramda';
 import { BoardPlaceholder } from './BoardPlaceholder';
 import { BoardComponent } from './BoardComponent';
 import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
+import * as R from 'ramda';
 
 const FlexContainer = styled.div`
     display: flex;
@@ -39,6 +40,9 @@ export const Boards = ({boards, handlers, new_board_name}: BoardsProps) =>
                             on_item_changed_board: handlers.on_item_changed_board,
                             on_board_items_sort: handlers.on_board_items_sort
                         }}
+                        get_board_id_for_item= {
+                            (item_id) => boards.filter(_ => R.findIndex(i => i.id === item_id, _.items) > -1)[0].id
+                        }
                     />
             )
         }
