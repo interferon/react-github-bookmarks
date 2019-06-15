@@ -31,6 +31,12 @@ const BoardLabel = styled.label`
     font-weight: bold;
 `
 
+const IconCont = styled.div`
+    position: relative;
+    top: -12px;
+    left: 10px;
+`
+
 type RenderBoardProps = {
     handlers: {
         on_board_remove: (id: Board['id']) => void,
@@ -73,7 +79,9 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
         <BoardContainer key={board.id}>
             <BoardHeader>
                 <BoardLabel>{board.title}</BoardLabel>
-                <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
+                <IconCont>
+                    <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
+                </IconCont>
             </BoardHeader>
             <ItemsListContainer innerRef={drop}>
                 {

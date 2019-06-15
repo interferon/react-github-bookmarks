@@ -6,9 +6,8 @@ import styled from 'styled-components';
 import * as all_actions from '../actions';
 import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
-import { ItemsList } from './components/items_list/ItemsList';
 import { Message } from './components/Message';
-import SearchBar from './components/search_bar/SearchBar';
+import { TopBar } from './components/search_bar/TopBar';
 
 type OwnProps = typeof all_actions;
 
@@ -29,7 +28,7 @@ class App extends React.Component<AppProps> {
         const {search, boards_settings, clear_search_result, operation, search_repos} = this.props;
         return (
             <div>
-                <SearchBar
+                <TopBar
                     on_search={
                         (query: string) => {
                             if(query.length > 2) {
@@ -45,18 +44,13 @@ class App extends React.Component<AppProps> {
                         }
                     }
                     status ={ operation.state === 'in_progress' && operation.type === 'search' ? 'loading': 'none'}
+                    items={search.search_result}
+                    is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
+                    on_add_to_board={
+                        (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
+                    }
                 />
                 <Main>
-                    {
-                        search.search_result.length > 0 && operation.state === 'success' &&
-                            <ItemsList
-                                items={search.search_result}
-                                is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
-                                on_add_to_board={
-                                    (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
-                                }
-                            />
-                    }
                     <Boards
                         boards={boards_settings.boards}
                         new_board_name={boards_settings.new_board_name}
