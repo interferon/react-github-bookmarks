@@ -8,6 +8,7 @@ import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
 import { Message } from './components/Message';
 import { TopBar } from './components/search_bar/TopBar';
+import '../../app/styles.css';
 
 type OwnProps = typeof all_actions;
 

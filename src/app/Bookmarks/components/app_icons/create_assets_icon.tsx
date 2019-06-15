@@ -19,14 +19,18 @@ export const create_assets_icon = (asset: string, size: 'large' | 'normal' | 'sm
 const IconLarge = styled.div`
     width: 30px;
     height: 30px;
+    margin-right: 5px;
 `;
 
 const IconNormal = styled.div`
     width: 20px;
     height: 20px;
+    margin-right: 5px;
 `;
 
 const IconSmall = styled.div`
     width: 10px;
     height: 10px;
+    padding-top: 5px;
+    margin-right: 5px;
 `;

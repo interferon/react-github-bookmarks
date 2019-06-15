@@ -1,11 +1,9 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import Select from 'react-select';
 import { BoardItem } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
 import { SearchIcon } from '../app_icons/icons';
 import { ListItem } from './ListItem';
-import { none } from 'fp-ts/lib/OptionT';
-import * as R from 'ramda';
 
 type SearchBarProps = {
     on_search: (text: string) => void,
@@ -17,7 +15,7 @@ type SearchBarProps = {
 
 const Bar = styled.div`
     padding-top: 20px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     background-color: white;
     display: flex;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
@@ -44,6 +42,31 @@ const Logo = styled.div`
     margin-right: 20px;
     font-weight: 400;
 `;
+
+const menu_style: CSSProperties = {
+    boxShadow: "0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12)",
+    top: "88%",
+    left: "20%",
+    border: "1px solid lightgrey",
+    borderTop: 'none',
+    backgroundColor: "white",
+    borderRadius: '2px',
+    marginBottom: '8px',
+    marginTop: '8px',
+    position: 'absolute',
+    width: '50%',
+    zIndex: 1,
+    overflowY: 'hidden'
+};
+
+const menu_list_style: CSSProperties = {
+    maxHeight: 650,
+    overflowY: 'auto',
+    paddingBottom: '25px',
+    paddingTop: '0px',
+    position: 'relative',
+    boxSizing: 'border-box'
+}
 
 export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status}: SearchBarProps): JSX.Element => {
 
@@ -89,34 +112,11 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                     styles={{
                         control: () => ({border: 'none', display: "flex", fontSize: 25}),
                         container: () => ({width: "100%"}),
-                        menu: () => ({
-                            boxShadow: "0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12)",
-                            top: "88%",
-                            left: "20%",
-                            border: "1px solid lightgrey",
-                            borderTop: 'none',
-                            backgroundColor: "white",
-                            borderRadius: '2px',
-                            marginBottom: '8px',
-                            marginTop: '8px',
-                            paddinBottom: 20,
-                            position: 'absolute',
-                            width: '50%',
-                            zIndex: 1,
-                            overflowY: 'hidden'
-                        }),
-                        menuList: () => ({
-                            maxHeight: 700,
-                            overflowY: 'auto',
-                            paddingBottom: '25px',
-                            paddingTop: '0px',
-                            position: 'relative',
-                            boxSizing: 'border-box'
-                        }),
+                        menu: () => (menu_style),
+                        menuList: () => (menu_list_style),
                         option: () => ({width: "100%", boxSizing: "border-box"})
                     }}
-                    autosize={false}
-                    options={R.take(3, items)}
+                    options={items}
                     isLoading={status === 'loading'}
                     onChange={(value: any) => { on_add_to_board(value)}}
                     onInputChange={on_search}

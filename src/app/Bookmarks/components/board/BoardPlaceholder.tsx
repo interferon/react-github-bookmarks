@@ -2,12 +2,7 @@ import React from 'react';
 import { PlusIcon } from '../app_icons/icons';
 import styled from 'styled-components';
 
-const Placeholder = styled.div`
-    max-height: 40px;
-    display: flex;
-    min-width: 250px;
-    margin: 20px;
-`;
+const Placeholder = styled.div``;
 
 type BoardPlaceholderProps = {
     placeholder: string,
@@ -17,7 +12,7 @@ type BoardPlaceholderProps = {
 };
 
 export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
-    <Placeholder>
+    <Placeholder className="bookmarks_creator">
         <input
             value={props.new_board_name}
             placeholder={props.placeholder}

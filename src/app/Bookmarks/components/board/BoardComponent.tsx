@@ -76,7 +76,7 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
     };
 
     return (
-        <BoardContainer key={board.id}>
+        <BoardContainer key={board.id} className={'board'}>
             <BoardHeader>
                 <BoardLabel>{board.title}</BoardLabel>
                 <IconCont>
