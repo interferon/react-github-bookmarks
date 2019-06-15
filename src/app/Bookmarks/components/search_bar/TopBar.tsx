@@ -99,14 +99,22 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                             borderRadius: '2px',
                             marginBottom: '8px',
                             marginTop: '8px',
+                            paddinBottom: 20,
                             position: 'absolute',
                             width: '50%',
                             zIndex: 1,
                             overflowY: 'hidden'
                         }),
+                        menuList: () => ({
+                            maxHeight: 700,
+                            overflowY: 'auto',
+                            paddingBottom: '25px',
+                            paddingTop: '0px',
+                            position: 'relative',
+                            boxSizing: 'border-box'
+                        }),
                         option: () => ({width: "100%", boxSizing: "border-box"})
                     }}
-                    maxMenuHeight={600}
                     autosize={false}
                     options={R.take(3, items)}
                     isLoading={status === 'loading'}
