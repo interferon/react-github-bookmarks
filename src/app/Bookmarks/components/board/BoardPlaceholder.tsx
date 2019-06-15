@@ -2,8 +2,6 @@ import React from 'react';
 import { PlusIcon } from '../app_icons/icons';
 import styled from 'styled-components';
 
-const Placeholder = styled.div``;
-
 type BoardPlaceholderProps = {
     placeholder: string,
     new_board_name: string,
@@ -11,9 +9,26 @@ type BoardPlaceholderProps = {
     on_new_board_name_change: (name: string) => void
 };
 
+const Container = styled.div`
+    width: 350px;
+    display: flex;
+    align-items: center;
+    height: 65px;
+    border: 1px gray dashed;
+    margin: 20px;
+`
+
+const Input = styled.input`
+    font-size : 25px;
+    width: 100%;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+`
+
 export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
-    <Placeholder className="bookmarks_creator">
-        <input
+    <Container>
+        <Input
             value={props.new_board_name}
             placeholder={props.placeholder}
             onChange={(e) => props.on_new_board_name_change(e.target.value)}
@@ -25,4 +40,4 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
             id={''}
             on_click={() => props.on_board_add()}
         />
-    </Placeholder>;
+    </Container>;

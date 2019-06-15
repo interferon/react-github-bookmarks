@@ -1,17 +1,16 @@
-import React, { useRef } from 'react';
-import { GithubRepo } from 'src/app/git_hub_api/search_repos';
-import styled from 'styled-components';
-import { pick } from 'ramda';
-import { BoardPlaceholder } from './BoardPlaceholder';
-import { BoardComponent } from './BoardComponent';
-import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
 import * as R from 'ramda';
+import React from 'react';
+import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
+import { BoardComponent } from './BoardComponent';
+import { BoardPlaceholder } from './BoardPlaceholder';
+import styled from 'styled-components';
 
-const FlexContainer = styled.div`
+
+const Container = styled.div`
     display: flex;
     justify-content: space-evenly;
-    flex-wrap: wrap;
-`;
+    flex-flow: wrap;
+`
 
 type BoardsProps = {
     boards: Board[],
@@ -26,8 +25,8 @@ type BoardsProps = {
     }
 };
 
-export const Boards = ({boards, handlers, new_board_name}: BoardsProps) => 
-    <FlexContainer>
+export const Boards = ({boards, handlers, new_board_name}: BoardsProps): JSX.Element => 
+    <Container className="boards">
         {
             boards.map(
                 board =>
@@ -52,4 +51,4 @@ export const Boards = ({boards, handlers, new_board_name}: BoardsProps) =>
             on_board_add={() => handlers.on_new_board_created({title: new_board_name})}
             on_new_board_name_change={handlers.on_new_board_title_change}
         />
-    </FlexContainer>
+    </Container>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useDrag, useDrop } from 'react-dnd';
-import { RemoveIcon } from '../app_icons/icons';
+import { BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
-import { BoardItem, Board, DragItem } from 'src/app/typings/bookmarks_typings';
+import { RemoveIcon } from '../app_icons/icons';
 
 
 const FlexContainer = styled.div`
@@ -49,7 +49,7 @@ export const BoardItemComponent = ({ on_item_remove, item, index, on_item_sort, 
     return (
         <FlexContainer key={item.id}  innerRef={node => drag(drop(node))}>
 
-            <div style={{ opacity: isDragging ? 0.08 : 1 }}>
+            <div style={{ opacity: isDragging ? 0.25 : 1 }}>
                 {item.name}
             </div>
 

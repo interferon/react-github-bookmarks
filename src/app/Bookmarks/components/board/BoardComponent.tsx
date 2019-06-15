@@ -9,6 +9,7 @@ import styled from 'styled-components';
 import { Board, BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
 
 const BoardContainer = styled.div`
+    color: #494949;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
     width: 350px;
     margin: 20px;
@@ -51,7 +52,7 @@ type RenderBoardProps = {
 export const BoardComponent = ({ handlers, board, get_board_id_for_item}: RenderBoardProps): JSX.Element => {
     const [board_items, setBoardItems] = useState(board.items);
 
-    const [{ canDrop }, drop] = useDrop<DragItem, void, { canDrop: boolean, isOver: boolean}>({
+    const [_, drop] = useDrop<DragItem, void, { canDrop: boolean, isOver: boolean}>({
         accept: 'board_item',
         drop: (i) => {
             handlers.on_item_changed_board({ from_board_id: get_board_id_for_item(i.id), item_id: i.id, to_board_id: board.id })
