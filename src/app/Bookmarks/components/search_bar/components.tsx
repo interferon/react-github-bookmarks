@@ -1,6 +1,4 @@
-import { BoardItem } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
-
 
 export const Bar = styled.div`
     padding-top: 20px;
@@ -15,12 +13,14 @@ export const Bar = styled.div`
     z-index: 30;
     margin-bottom: 1.5rem;
 `;
+
 export const SearchContainer = styled.div`
     display: flex;
     align-items: center;
     width: 50%;
     margin: 0 auto;
 `;
+
 export const Logo = styled.div`
     font-size: 20px;
     heigth: 100%;

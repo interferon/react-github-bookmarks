@@ -1,23 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useDrop } from 'react-dnd';
-import { RemoveIcon } from '../app_icons/icons';
+import { BIcon } from '../app_icons/icons';
 import { swap } from '../../../helpers/ramda-helpers';
 import { update } from '../../../helpers/update';
 import { BoardItemComponent } from "./BoardItem";
 import * as R from 'ramda';
 import styled from 'styled-components';
-import { Board, BoardItem, DragItem } from 'src/app/typings/bookmarks_typings';
+import { Board, Item, DragItem } from 'src/app/typings/bookmarks_typings';
 
 const BoardContainer = styled.div`
     color: #494949;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
-    width: 350px;
     margin: 20px;
     border-radius: 5px;
+    width: 400px;
 `
 const ItemsListContainer = styled.ul`
     min-height: 50px;
-    padding: 10px;
+    padding: 0px;
+    margin: 0px;
 `
 const BoardHeader = styled.div`
     display: flex;
@@ -41,11 +42,11 @@ const IconCont = styled.div`
 type RenderBoardProps = {
     handlers: {
         on_board_remove: (id: Board['id']) => void,
-        on_board_item_remove: (a : {board_id: Board['id'], item_id: BoardItem['id']}) => void
-        on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) => void,
+        on_board_item_remove: (a : {board_id: Board['id'], item_id: Item['id']}) => void
+        on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: Item['id']}) => void,
         on_board_items_sort: (board: Board) => void
     },
-    get_board_id_for_item: (id: BoardItem['id']) => string
+    get_board_id_for_item: (id: Item['id']) => string
     board: Board
 };
 
@@ -81,7 +82,11 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
             <BoardHeader>
                 <BoardLabel>{board.title}</BoardLabel>
                 <IconCont>
-                    <RemoveIcon on_click={(id) => handlers.on_board_remove(id)} id={board.id} />
+                    <BIcon
+                        on_click={() => handlers.on_board_remove(board.id)}
+                        size='normal'
+                        type="close"
+                    />
                 </IconCont>
             </BoardHeader>
             <ItemsListContainer innerRef={drop}>

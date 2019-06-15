@@ -6,7 +6,7 @@ import { update } from "./helpers/update";
 import { generate_board_id } from "./helpers/generateBoardId";
 import { reject } from "ramda";
 import { upsertAllBy } from "./helpers/ramda-helpers";
-import { Board, BoardItem } from "./typings/bookmarks_typings";
+import { Board, Item } from "./typings/bookmarks_typings";
 import { debounce } from "./helpers/debounce";
 import { Either } from "fp-ts/lib/Either";
 import { BookmarksError } from "./helpers/fetch";
@@ -224,7 +224,7 @@ export const clear_search_result = (query: string) =>
         });
     }
 
-export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}, all_boards: Board[]) =>
+export const change_item_board = (params: {from_board_id: Board['id'], to_board_id: Board['id'], item_id: Item['id']}, all_boards: Board[]) =>
     (dispatch: BookmarksDispatch) => {
         const from_board = all_boards.filter(b => b.id === params.from_board_id)[0];
         const to_board = all_boards.filter(b => b.id === params.to_board_id)[0];

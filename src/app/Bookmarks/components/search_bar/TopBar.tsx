@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-import { BoardItem } from 'src/app/typings/bookmarks_typings';
-import { SearchIcon } from '../app_icons/icons';
+import { Item } from 'src/app/typings/bookmarks_typings';
+import { BIcon } from '../app_icons/icons';
 import { ListItem } from './ListItem';
 import { select_styles } from './select_styles';
 import { Bar, SearchContainer, Logo } from './components';
@@ -9,9 +9,9 @@ import { Bar, SearchContainer, Logo } from './components';
 export type SearchBarProps = {
     on_search: (text: string) => void;
     status: 'loading' | 'none';
-    items: BoardItem[];
-    is_item_added: (id: BoardItem) => boolean;
-    on_add_to_board: (item: BoardItem) => void;
+    items: Item[];
+    is_item_added: (id: Item) => boolean;
+    on_add_to_board: (item: Item) => void;
 };
 
 export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status}: SearchBarProps): JSX.Element => {
@@ -19,8 +19,8 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
     return (
         <Bar>
             <SearchContainer>
-                <SearchIcon id='search_icon'/>
-                <Select<BoardItem>
+                <BIcon size="large" type="search"/>
+                <Select<Item>
                     components={
                         {
                             DropdownIndicator: () => null,

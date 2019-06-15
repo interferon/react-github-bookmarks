@@ -1,36 +1,37 @@
 import React from "react";
 import styled from "styled-components";
 
+export type Size = 'large' | 'normal' | 'small';
+export type IconType = "plus" | "star" | "close" | "search"
 
-export const create_assets_icon = (asset: string, size: 'large' | 'normal' | 'small') => (props: {
-    on_click?: (id: string) => void;
-    id: string;
-}) => {
-    switch (size) {
-        case 'small':
-            return <IconSmall dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }} onClick={() => props.on_click && props.on_click(props.id)} />;
-        case 'normal':
-            return <IconNormal dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }} onClick={() => props.on_click && props.on_click(props.id)} />;
-        case 'large':
-            return <IconLarge dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }} onClick={() => props.on_click && props.on_click(props.id)} />;
-    }
+export const create_assets_icon = (type : IconType, size: Size, on_click?: () => void): JSX.Element => {
+    return <Icon
+        size={size}
+        dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${type}.svg`) }}
+        onClick={() => on_click && on_click()}
+    />;
 };
 
-const IconLarge = styled.div`
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
-`;
 
-const IconNormal = styled.div`
-    width: 20px;
-    height: 20px;
-    margin-right: 5px;
-`;
-
-const IconSmall = styled.div`
+const Icon = styled.div<{size: Size}>`
     width: 10px;
     height: 10px;
-    padding-top: 5px;
-    margin-right: 5px;
+    ${
+        (props) => {
+            switch (props.size) {
+                case 'small':
+                    return {
+                        width: '10px', 
+                    }
+                case 'normal':
+                    return {
+                        width: '20px', 
+                    }
+                case 'large':
+                    return {
+                        width: '30px', 
+                    }
+            }
+        } 
+    }
 `;

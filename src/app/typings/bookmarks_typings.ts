@@ -1,6 +1,6 @@
 import { GithubRepo } from "../git_hub_api/search_repos";
 
-export type BoardItem = GithubRepo;
+export type Item = GithubRepo;
 
 export type DragItem = {
     index: number,
@@ -9,7 +9,7 @@ export type DragItem = {
 };
 
 export type Board = {
-    items: BoardItem[],
+    items: Item[],
     title: string,
     id: string
 };

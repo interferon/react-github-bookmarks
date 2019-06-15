@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import React from 'react';
-import { Board, BoardItem } from 'src/app/typings/bookmarks_typings';
+import { Board, Item } from 'src/app/typings/bookmarks_typings';
 import { BoardComponent } from './BoardComponent';
 import { BoardPlaceholder } from './BoardPlaceholder';
 import styled from 'styled-components';
@@ -19,8 +19,8 @@ type BoardsProps = {
         on_new_board_created: (b: {title: string}) => void,
         on_new_board_title_change: (board_title: string) => void,
         on_board_remove: (id: Board['id']) => void,
-        on_board_item_remove: (a : {board_id: Board['id'], item_id: BoardItem['id']}) => void
-        on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: BoardItem['id']}) => void,
+        on_board_item_remove: (a : {board_id: Board['id'], item_id: Item['id']}) => void
+        on_item_changed_board: (a : {from_board_id: Board['id'], to_board_id: Board['id'], item_id: Item['id']}) => void,
         on_board_items_sort: (board: Board) => void
     }
 };
