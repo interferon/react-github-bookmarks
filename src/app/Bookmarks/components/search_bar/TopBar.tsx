@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { SearchIcon } from '../app_icons/icons';
 import { ListItem } from './ListItem';
 import { none } from 'fp-ts/lib/OptionT';
+import * as R from 'ramda';
 
 type SearchBarProps = {
     on_search: (text: string) => void,
@@ -69,15 +70,15 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                                 on_add={() => on_add_to_board(option)}
                             />
                     }
+                    isOptionDisabled={option => is_item_added(option)}
                     defaultMenuIsOpen={false}
-                    //menuIsOpen={true}
                     noOptionsMessage={
                         ({inputValue}) => {
                             if(inputValue.length > 2){
                                 return `Nothing found for ${inputValue}`
                             };
-                            if(inputValue.length > 0 && inputValue.length < 2){
-                                return `Type at least 2 chars`
+                            if(inputValue.length > 0 && inputValue.length < 3){
+                                return `Type at least 3 chars`
                             }
                             return null;
                         }
@@ -86,12 +87,12 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                     value={null}
                     loadingMessage={() => 'Searching repos...'}
                     styles={{
-                        control: () => ({border: 'none', display: "flex"}),
+                        control: () => ({border: 'none', display: "flex", fontSize: 25}),
                         container: () => ({width: "100%"}),
                         menu: () => ({
                             boxShadow: "0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12)",
                             top: "88%",
-                            left: "15%",
+                            left: "20%",
                             border: "1px solid lightgrey",
                             borderTop: 'none',
                             backgroundColor: "white",
@@ -99,13 +100,15 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                             marginBottom: '8px',
                             marginTop: '8px',
                             position: 'absolute',
-                            width: '55%',
-                            zIndex: 1
-                        })
+                            width: '50%',
+                            zIndex: 1,
+                            overflowY: 'hidden'
+                        }),
+                        option: () => ({width: "100%", boxSizing: "border-box"})
                     }}
-                    maxMenuHeight={400}
+                    maxMenuHeight={600}
                     autosize={false}
-                    options={items}
+                    options={R.take(3, items)}
                     isLoading={status === 'loading'}
                     onChange={(value: any) => { on_add_to_board(value)}}
                     onInputChange={on_search}

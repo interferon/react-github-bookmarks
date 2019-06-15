@@ -2,11 +2,13 @@ import React from "react";
 import styled from "styled-components";
 
 
-export const create_assets_icon = (asset: string, size: 'large' | 'normal') => (props: {
+export const create_assets_icon = (asset: string, size: 'large' | 'normal' | 'small') => (props: {
     on_click?: (id: string) => void;
     id: string;
 }) => {
     switch (size) {
+        case 'small':
+            return <IconSmall dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }} onClick={() => props.on_click && props.on_click(props.id)} />;
         case 'normal':
             return <IconNormal dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${asset}.svg`) }} onClick={() => props.on_click && props.on_click(props.id)} />;
         case 'large':
@@ -22,4 +24,9 @@ const IconLarge = styled.div`
 const IconNormal = styled.div`
     width: 20px;
     height: 20px;
+`;
+
+const IconSmall = styled.div`
+    width: 10px;
+    height: 10px;
 `;

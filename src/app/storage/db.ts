@@ -32,4 +32,4 @@ export const saveAllBoards = (boards: Board[]): Promise<Board[]> => storage.save
 export const getSavedBoards = (): Promise<Board[]> =>
     storage
         .load<Board[] | null>('boards')
-        .then(bs => bs ? bs : saveAllBoards([{ id: generate_board_id(), items: [], title: "Common board" }]));
+        .then(bs => bs ? bs : saveAllBoards([{ id: generate_board_id(), items: [], title: "Collection" }]));
