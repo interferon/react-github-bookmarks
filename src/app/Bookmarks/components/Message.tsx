@@ -1,6 +1,9 @@
 import { BookmarkState } from "src/app/reducer";
 import React from 'react';
+import { useAlert } from "react-alert";
 
 export const Message = (op: {operation: BookmarkState['operation']}): JSX.Element => {
-    return <div style={{color: op.operation.state === 'fail' ? 'red' : "green"}}>{op.operation.message}</div>
+    // const alert = useAlert();
+    // alert.info(op.operation.message)
+    return <div></div>;
 }

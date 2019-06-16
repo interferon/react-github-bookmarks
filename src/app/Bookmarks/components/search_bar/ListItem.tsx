@@ -4,6 +4,7 @@ import { Item } from 'src/app/typings/bookmarks_typings';
 import { ItemCont, FlexContSplitted, Description } from './list_item_components';
 import { ItemDescriptionFooter } from './ItemDescriptionFooter';
 import { ItemLinkCont } from './ItemLinkCont';
+import { truncate } from '../../../helpers/truncate';
 
 type ListItemProps = {
     item: Item;
@@ -19,7 +20,7 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
             url={item.url}
         />
         <FlexContSplitted>
-           <Description type={'search'}> { item.description } </Description>
+           <Description type={'search'}> { truncate(item.description || '', 200) } </Description>
             {
                 is_checked
                     ? <BoardIcon size="large" type="check"/>

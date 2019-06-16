@@ -41,7 +41,7 @@ export const search_repos = (query: string): ActionReturnType =>
                             createOperationStateAction(
                                 {
                                     message: err.message,
-                                    state: "fail",
+                                    state: "error",
                                     type: 'search'
                                 }
                             )

@@ -1,5 +1,7 @@
 import * as R from 'ramda';
 import React from 'react';
+import { positions, Provider as AlertProvider, transitions } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -9,7 +11,7 @@ import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
 import { Message } from './components/Message';
 import { TopBar } from './components/search_bar/TopBar';
-
+import { withAlert } from 'react-alert'
 type OwnProps = typeof all_actions;
 
 type AppProps = BookmarkState & OwnProps;
@@ -17,6 +19,15 @@ type AppProps = BookmarkState & OwnProps;
 const Main = styled.div`
     margin-top: 100px;
 `
+
+const options = {
+    // you can also just use 'bottom center'
+    position: positions.TOP_RIGHT,
+    timeout: 3000,
+    offset: '30px',
+    // you can also just use 'scale'
+    transition: transitions.SCALE
+  }
 
 class App extends React.Component<AppProps> {
     constructor(props: AppProps){
@@ -49,6 +60,7 @@ class App extends React.Component<AppProps> {
                         (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
                     }
                 />
+                
                 <Main>
                     <Boards
                         boards={boards_settings.boards}
@@ -63,7 +75,6 @@ class App extends React.Component<AppProps> {
                         }}
                     />
                 </Main>
-                <Message operation={operation}/>
             </div>
         );
     };

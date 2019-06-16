@@ -6,6 +6,7 @@ import { ItemDescriptionFooter } from '../search_bar/ItemDescriptionFooter';
 import { ItemLinkCont } from '../search_bar/ItemLinkCont';
 import { Description } from '../search_bar/list_item_components';
 import { IconLeftHeader } from './IconHeader';
+import { truncate } from '../../../helpers/truncate';
 
 
 const BoardItemTopContainer = styled.div<{
@@ -83,7 +84,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                     />
                     <Description type={'board'}>
                         {
-                            item.description
+                            truncate(item.description || '', 120)
                         }
                     </Description>
                     <ItemDescriptionFooter item={item} include={['stargazers_count', 'issues', 'last_updated']}/>

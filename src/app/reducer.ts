@@ -18,7 +18,7 @@ export type BookmarkState = {
     }
     operation: {
         type: "search" | "add_new_board" | "load_boards" | "add_item_to_board" | "board_remove" | "item_remove" | "sort_board_items" | "board_change",
-        state: "success" | "fail" | "in_progress",
+        state: "success" | "error" | "in_progress",
         message: string
     }
 };

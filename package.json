@@ -19,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/ramda": "^0.26.9",
+    "@types/react-alert": "^5.2.0",
     "@types/react-autosuggest": "^9.3.8",
     "@types/react-redux": "^7.0.9",
     "@types/redux-immutable": "^4.0.1",
@@ -33,6 +34,8 @@
     "polished": "^1.9.2",
     "ramda": "^0.26.1",
     "react": "^16.8.6",
+    "react-alert": "^5.5.0",
+    "react-alert-template-basic": "^1.0.0",
     "react-autosuggest": "^9.4.3",
     "react-dnd": "^7.6.0",
     "react-dnd-html5-backend": "^7.6.0",
