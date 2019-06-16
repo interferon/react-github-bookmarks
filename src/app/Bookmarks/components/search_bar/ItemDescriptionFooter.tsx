@@ -1,5 +1,5 @@
 import React from 'react';
-import { BIcon } from '../app_icons/icons';
+import { BoardIcon } from '../app_icons/icons';
 import { Item } from 'src/app/typings/bookmarks_typings';
 import TimeAgo from 'react-timeago';
 import { FlexCont, DescriptionSmall } from './list_item_components';
@@ -22,7 +22,7 @@ const item_type_to_renderer: Record<IType, (item: Item) => JSX.Element> = {
     license: (item) => <DescriptionSmall key="license">{`${item.open_issues_count} issues need help`}</DescriptionSmall>,
     stargazers_count: (item) =>
         <DescriptionSmall key="stargazers_count">
-            <BIcon type="star" size="small"/>
+            <BoardIcon type="star" size="small"/>
             {item.stargazers_count}
         </DescriptionSmall>
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BIcon } from '../app_icons/icons';
+import { BoardIcon } from '../app_icons/icons';
 import styled from 'styled-components';
 
 type BoardPlaceholderProps = {
@@ -38,7 +38,7 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
                 (e) => props.new_board_name.length > 0 && e.key === 'Enter' && props.on_board_add()
             }
         />
-        <BIcon
+        <BoardIcon
             on_click={() => props.new_board_name.length > 0 && props.on_board_add()}
             size='large'
             type="plus"

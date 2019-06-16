@@ -1,11 +1,11 @@
+import { merge } from 'ramda';
 import React from 'react';
 import { Item } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
 import { ItemDescriptionFooter } from '../search_bar/ItemDescriptionFooter';
-import { Description, Link, LinkCont } from '../search_bar/list_item_components';
-import { IconLeftHeader } from './IconHeader';
-import { merge } from 'ramda';
 import { ItemLinkCont } from '../search_bar/ItemLinkCont';
+import { Description } from '../search_bar/list_item_components';
+import { IconLeftHeader } from './IconHeader';
 
 
 const BoardItemTopContainer = styled.div<{

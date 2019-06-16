@@ -13,6 +13,9 @@ export const LinkCont = styled.div`
     display-flex;
 `;
 export const Link = styled.a`
+    color: #136ce4;
+    font-size: 18px;
+    text-decoration: none;
 `;
 export const FlexContSplitted = styled.div`
     display: flex;
@@ -39,6 +42,7 @@ export const Description = styled.div<{type: "board" | "search"}>`
 `;
 export const DescriptionSmall = styled.span`
     display: flex;
+    align-items: center;
     margin-right: 8px;
     font-size: 10px;
 `;

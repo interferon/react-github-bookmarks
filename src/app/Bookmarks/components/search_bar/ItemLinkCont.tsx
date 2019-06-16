@@ -10,9 +10,8 @@ type Props = {
 export const ItemLinkCont = ({ url, login, repo_name }: Props) => {
     return <LinkCont>
         <Link href={url} target="_blank">
-            <span>{login}</span>
-            /
-            <span style={{ fontWeight: 'bold' }}>{repo_name}</span>
+            <span style={{ fontWeight: 400 }}>{`${login}/`}</span>
+            <span style={{ fontWeight: 600 }}>{repo_name}</span>
         </Link>
     </LinkCont>;
 };

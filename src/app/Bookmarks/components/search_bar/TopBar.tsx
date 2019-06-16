@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import { Item } from 'src/app/typings/bookmarks_typings';
-import { BIcon } from '../app_icons/icons';
+import { BoardIcon } from '../app_icons/icons';
 import { ListItem } from './ListItem';
 import { select_styles } from './select_styles';
 import { Bar, SearchContainer, Logo } from './components';
@@ -19,7 +19,7 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
     return (
         <Bar>
             <SearchContainer>
-                <BIcon size="large" type="search"/>
+                <BoardIcon size="large" type="search"/>
                 <Select<Item>
                     components={
                         {
