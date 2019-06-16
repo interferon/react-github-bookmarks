@@ -18,7 +18,7 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
             disabled={true}
             login={item.owner.login}
             repo_name={item.name}
-            url={item.url}
+            url={item.html_url}
         />
         <FlexContSplitted>
            <Description type={'search'}> { truncate(item.description || '', 200) } </Description>

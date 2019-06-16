@@ -80,7 +80,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                     <ItemLinkCont
                         login={item.owner.login}
                         repo_name={item.name}
-                        url={item.url}
+                        url={item.html_url}
                     />
                     <Description type={'board'}>
                         {
