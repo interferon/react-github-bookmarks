@@ -87,7 +87,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                             item.description
                         }
                     </Description>
-                    <ListItemDescription item={item} include={['stargazers_count', 'last_updated', 'issues']}/>
+                    <ListItemDescription item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
                 </InfoCont>
             </Body>
         </BoardItemTopContainer>

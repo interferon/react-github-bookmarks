@@ -5,15 +5,14 @@ export const Bar = styled.div`
     padding-bottom: 20px;
     background-color: white;
     display: flex;
-    box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.15);
     top: 0;
     left: 0;
     position: fixed;
     right: 0;
     z-index: 30;
     margin-bottom: 1.5rem;
-    width: 98%;
-    margin: 0 auto;
+    width: 100%;
 `;
 
 export const SearchContainer = styled.div`

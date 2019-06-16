@@ -14,7 +14,11 @@ type Props = {
 
 const item_type_to_renderer: Record<IType, (item: Item) => JSX.Element> = {
     issues: (item) => <DescriptionSmall key="issues">{`${item.open_issues_count} issues need help`}</DescriptionSmall>,
-    last_updated: (item) => <DescriptionSmall key="last_updated"> {"Updated  "} <TimeAgo date={item.updated_at} /> </DescriptionSmall>,
+    last_updated: (item) =>
+        <DescriptionSmall key="last_updated">
+            <span style={{marginRight: "5px"}}>{"Updated"}</span>
+            <TimeAgo date={item.updated_at} />
+        </DescriptionSmall>,
     license: (item) => <DescriptionSmall key="license">{`${item.open_issues_count} issues need help`}</DescriptionSmall>,
     stargazers_count: (item) =>
         <DescriptionSmall key="stargazers_count">

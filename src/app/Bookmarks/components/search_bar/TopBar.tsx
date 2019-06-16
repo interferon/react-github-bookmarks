@@ -41,7 +41,7 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                             />
                     }
                     isOptionDisabled={option => is_item_added(option)}
-                    defaultMenuIsOpen={false}
+                    defaultMenuIsOpen={true}
                     defaultOptions={false}
                     noOptionsMessage={
                         ({inputValue}) => {

@@ -35,12 +35,12 @@ export const Description = styled.div<{type: "board" | "search"}>`
         }
     }
     padding: 10px;
-    font-size: 12px;
+    font-size: 14px;
 `;
 export const DescriptionSmall = styled.span`
     display: flex;
     margin-right: 8px;
-    font-size: 8px;
+    font-size: 10px;
 `;
 export const FlexCont = styled.div`
     padding: 12px;

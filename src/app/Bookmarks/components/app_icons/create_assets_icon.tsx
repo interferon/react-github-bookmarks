@@ -21,7 +21,7 @@ const Icon = styled.div<{size: IconSize}>`
                     return {
                         width: '10px',
                         height: '10px',
-                        margin: "inherit"
+                        margin: "0px 2px 0px 0px"
                     }
                 case 'normal':
                     return {

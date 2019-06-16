@@ -10,7 +10,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-flow: wrap;
-    width: 70%;
+    width: 90%;
     margin: 0 auto;
 `
 
