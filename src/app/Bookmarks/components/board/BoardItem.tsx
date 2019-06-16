@@ -1,9 +1,11 @@
-import styled from 'styled-components';
 import React from 'react';
-import { LinkCont, Link, Description } from '../search_bar/list_item_components';
-import { ListItemDescription } from '../search_bar/ListItemDescription';
 import { Item } from 'src/app/typings/bookmarks_typings';
-import { BIcon } from '../app_icons/icons';
+import styled from 'styled-components';
+import { ListItemDescription } from '../search_bar/ListItemDescription';
+import { Description, Link, LinkCont } from '../search_bar/list_item_components';
+import { IconLeftHeader } from './IconHeader';
+import { merge } from 'ramda';
+
 
 const BoardItemTopContainer = styled.div<{
     is_dragging: boolean;
@@ -11,7 +13,7 @@ const BoardItemTopContainer = styled.div<{
     ${
         (props) => props.is_dragging
             ? { opacity: 0 }
-            : { opacity: 1 }
+            : merge({ opacity: 1}, {})
     }
 
     display: flex;
@@ -21,13 +23,7 @@ const BoardItemTopContainer = styled.div<{
     height: 200px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
     background-color: white;
-`;
-
-const Header = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
+    margin: 2px 0px 2px 0px;
 `;
 
 const Body = styled.div`
@@ -50,7 +46,7 @@ const Avatar = styled.img`
 `;
 
 const AvatarCont = styled.div`
-    width: 30%;
+    width: 25%;
     display: flex;
     justify-content: center;
 `;
@@ -64,17 +60,16 @@ type BoardItemProps = {
 
 export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardItemProps) => {
     return <BoardItemTopContainer
+            className={"board_item"}
             is_dragging={is_dragging}
             key={item.id}
             innerRef={node => add_ref(node)}
         >
-            <Header>
-                <BIcon
-                    on_click={() => on_item_remove(item.id)}
-                    size='normal'
-                    type="close"
-                />
-            </Header>
+            <IconLeftHeader
+                on_click={() => on_item_remove(item.id)}
+                size='normal'
+                type="close"
+            />
             <Body>
                 <AvatarCont>
                     <Avatar src={item.owner.avatar_url}/>
@@ -92,7 +87,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                             item.description
                         }
                     </Description>
-                    <ListItemDescription item={item} include={['issues', 'last_updated', 'stargazers_count']}/>
+                    <ListItemDescription item={item} include={['stargazers_count', 'last_updated', 'issues']}/>
                 </InfoCont>
             </Body>
         </BoardItemTopContainer>

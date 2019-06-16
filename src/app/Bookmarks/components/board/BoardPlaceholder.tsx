@@ -13,12 +13,14 @@ const Container = styled.div`
     width: 400px;
     display: flex;
     align-items: center;
-    height: 65px;
+    height: 85px;
     border: 1px gray dashed;
     margin: 20px;
+    border-radius: 0px;
 `
 
 const Input = styled.input`
+    background-color: #f5f7fa;
     font-size : 25px;
     width: 100%;
     border: none;
@@ -37,8 +39,8 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
             }
         />
         <BIcon
-            on_click={() => props.on_board_add()}
-            size='normal'
+            on_click={() => props.new_board_name.length > 0 && props.on_board_add()}
+            size='large'
             type="plus"
         />
     </Container>;

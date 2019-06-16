@@ -7,17 +7,20 @@ import { BoardItemComponent } from "./BoardItemComponent";
 import * as R from 'ramda';
 import styled from 'styled-components';
 import { Board, Item, DragItem } from 'src/app/typings/bookmarks_typings';
+import { IconLeftHeader } from './IconHeader';
 
 const BoardContainer = styled.div`
     height: fit-content;
-    color: #494949;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    box-shadow:
+        0 2px 2px 0 rgba(0,0,0,.14),
+        0 3px 1px -2px rgba(0,0,0,.2),
+        0 1px 5px 0 rgba(0,0,0,.12);
     margin: 20px;
-    border-radius: 5px;
     width: 400px;
+    border-radius: 5px;
 `
 const ItemsListContainer = styled.ul`
-    background-color: #dddcdc;
+    background-color: #efeeee;
     min-height: 50px;
     padding: 0px;
     margin: 0px;
@@ -25,20 +28,19 @@ const ItemsListContainer = styled.ul`
 const BoardHeader = styled.div`
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    border-bottom: 2px solid #8080805e;
-    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
 `;
 
 const BoardLabel = styled.label`
+    color: #4b4b4b;
     font-size: 25px;
     font-weight: bold;
-`
-
-const IconCont = styled.div`
-    position: relative;
-    top: -12px;
-    left: 10px;
+    display: block;
+    width: 100%;
+    padding: 0px 0px 25px 20px;
 `
 
 type RenderBoardProps = {
@@ -82,14 +84,12 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
     return (
         <BoardContainer key={board.id} className={'board'}>
             <BoardHeader>
+                <IconLeftHeader
+                    on_click={() => handlers.on_board_remove(board.id)}
+                    size='large'
+                    type="close"
+                />
                 <BoardLabel>{board.title}</BoardLabel>
-                <IconCont>
-                    <BIcon
-                        on_click={() => handlers.on_board_remove(board.id)}
-                        size='normal'
-                        type="close"
-                    />
-                </IconCont>
             </BoardHeader>
             <ItemsListContainer innerRef={drop}>
                 {

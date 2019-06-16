@@ -10,6 +10,8 @@ const Container = styled.div`
     display: flex;
     justify-content: space-evenly;
     flex-flow: wrap;
+    width: 70%;
+    margin: 0 auto;
 `
 
 type BoardsProps = {
