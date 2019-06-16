@@ -12,10 +12,11 @@ export const LinkCont = styled.div`
     padding: 0px 10px 10px 10px;
     display-flex;
 `;
-export const Link = styled.a`
+export const Link = styled.a<{disabled: boolean}>`
     color: #136ce4;
     font-size: 18px;
     text-decoration: none;
+    ${({disabled}) => disabled ? 'pointer-events: none; cursor: default;' : ''}
 `;
 export const FlexContSplitted = styled.div`
     display: flex;

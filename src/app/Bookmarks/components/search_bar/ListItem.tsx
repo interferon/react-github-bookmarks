@@ -15,6 +15,7 @@ type ListItemProps = {
 export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Element => {
     return <ItemCont>
         <ItemLinkCont
+            disabled={true}
             login={item.owner.login}
             repo_name={item.name}
             url={item.url}
