@@ -10,6 +10,7 @@ import './global'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { DragDropContextProvider } from 'react-dnd'
 
+
 class Application extends React.PureComponent {
   render () {
     return (

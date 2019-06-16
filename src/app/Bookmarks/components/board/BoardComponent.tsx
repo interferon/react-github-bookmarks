@@ -17,7 +17,7 @@ const BoardContainer = styled.div`
 `
 const ItemsListContainer = styled.ul`
     background-color: #eeeeee;
-    min-height: 50px;
+    min-height: 200px;
     padding: 0px;
     margin: 0px;
 `

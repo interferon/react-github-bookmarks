@@ -23,8 +23,8 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
            <Description type={'search'}> { truncate(item.description || '', 200) } </Description>
             {
                 is_checked
-                    ? <BoardIcon size="large" type="check"/>
-                    : <BoardIcon size="normal" type="plus" on_click={() => on_add()} />
+                    ? <BoardIcon size="large" type="check" color="#3fd07d"/>
+                    : <BoardIcon size="large" type="plus" on_click={() => on_add()} />
             }
         </FlexContSplitted>
         <ItemDescriptionFooter item={item} include={['license', 'last_updated', 'issues', 'stargazers_count']}/>

@@ -1,7 +1,5 @@
 import * as R from 'ramda';
 import React from 'react';
-import { positions, Provider as AlertProvider, transitions } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -11,7 +9,7 @@ import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
 import { Message } from './components/Message';
 import { TopBar } from './components/search_bar/TopBar';
-import { withAlert } from 'react-alert'
+
 type OwnProps = typeof all_actions;
 
 type AppProps = BookmarkState & OwnProps;
@@ -19,16 +17,6 @@ type AppProps = BookmarkState & OwnProps;
 const Main = styled.div`
     margin-top: 100px;
 `
-
-const options = {
-    // you can also just use 'bottom center'
-    position: positions.TOP_RIGHT,
-    timeout: 3000,
-    offset: '30px',
-    // you can also just use 'scale'
-    transition: transitions.SCALE
-  }
-
 class App extends React.Component<AppProps> {
     constructor(props: AppProps){
         super(props);
@@ -38,44 +26,46 @@ class App extends React.Component<AppProps> {
     }
     render() {
         const {search, boards_settings, operation, search_repos} = this.props;
+        operation.state === 'error' && alert(operation.message)
         return (
-            <div>
-                <TopBar
-                    on_search={
-                        (query: string) => {
-                            if(query.length > 2) {
-                                this.props.set_operation_state({
-                                    message: '',
-                                    state: 'in_progress',
-                                    type: 'search'
-                                });
-                                search_repos(query)
+                <div>
+                    <Message operation={this.props.operation}/>
+                    <TopBar
+                        on_search={
+                            (query: string) => {
+                                if(query.length > 2) {
+                                    this.props.set_operation_state({
+                                        message: '',
+                                        state: 'in_progress',
+                                        type: 'search'
+                                    });
+                                    search_repos(query)
+                                }
                             }
                         }
-                    }
-                    status ={ operation.state === 'in_progress' && operation.type === 'search' ? 'loading': 'none'}
-                    items={search.search_result}
-                    is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
-                    on_add_to_board={
-                        (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
-                    }
-                />
-                
-                <Main>
-                    <Boards
-                        boards={boards_settings.boards}
-                        new_board_name={boards_settings.new_board_name}
-                        handlers={{
-                            on_new_board_title_change: this.props.change_new_board_title,
-                            on_new_board_created: this.props.add_new_board,
-                            on_board_item_remove: this.props.remove_board_item,
-                            on_board_remove: this.props.remove_board,
-                            on_item_changed_board: (params) => this.props.change_item_board(params, this.props.boards_settings.boards),
-                            on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
-                        }}
+                        status ={ operation.state === 'in_progress' && operation.type === 'search' ? 'loading': 'none'}
+                        items={search.search_result}
+                        is_item_added={(item) => R.includes(item.id, search.added_items_ids)}
+                        on_add_to_board={
+                            (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
+                        }
                     />
-                </Main>
-            </div>
+                    
+                    <Main>
+                        <Boards
+                            boards={boards_settings.boards}
+                            new_board_name={boards_settings.new_board_name}
+                            handlers={{
+                                on_new_board_title_change: this.props.change_new_board_title,
+                                on_new_board_created: this.props.add_new_board,
+                                on_board_item_remove: this.props.remove_board_item,
+                                on_board_remove: this.props.remove_board,
+                                on_item_changed_board: (params) => this.props.change_item_board(params, this.props.boards_settings.boards),
+                                on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
+                            }}
+                        />
+                    </Main>
+                </div>
         );
     };
 };

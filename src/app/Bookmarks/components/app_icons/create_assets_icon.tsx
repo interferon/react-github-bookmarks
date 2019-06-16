@@ -5,8 +5,17 @@ import { merge } from "ramda";
 export type IconSize = 'large' | 'normal' | 'small';
 export type IconType = "plus" | "star" | "close" | "search" | "check"
 
-export const create_assets_icon = (type : IconType, size: IconSize, styles: Partial<CSSStyleDeclaration>, on_click: () => void): JSX.Element => {
+export type BoardIconProps = {
+    size: IconSize,
+    type : IconType,
+    on_click: () => void,
+    styles: Partial<CSSStyleDeclaration>,
+    color : string
+}
+
+export const create_assets_icon = ({color, on_click, size, styles, type}: BoardIconProps): JSX.Element => {
     return <Icon
+        color={color}
         styles={styles}
         className={"icon"}
         size={size}
@@ -16,15 +25,14 @@ export const create_assets_icon = (type : IconType, size: IconSize, styles: Part
 };
 
 
-const Icon = styled.div<{size: IconSize, styles: Partial<CSSStyleDeclaration>}>`
+const Icon = styled.div<{size: IconSize, styles: Partial<CSSStyleDeclaration>, color: string}>`
     svg {
         path {
-            fill: #999;
+            fill: ${(props) => props.color};
         }​
     };
     ${
         (props) => {
-            console.log(props);
             switch (props.size) {
                 case 'small':
                     return merge(
