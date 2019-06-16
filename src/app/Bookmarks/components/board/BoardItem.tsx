@@ -1,10 +1,11 @@
 import React from 'react';
 import { Item } from 'src/app/typings/bookmarks_typings';
 import styled from 'styled-components';
-import { ListItemDescription } from '../search_bar/ListItemDescription';
+import { ItemDescriptionFooter } from '../search_bar/ItemDescriptionFooter';
 import { Description, Link, LinkCont } from '../search_bar/list_item_components';
 import { IconLeftHeader } from './IconHeader';
 import { merge } from 'ramda';
+import { ItemLinkCont } from '../search_bar/ItemLinkCont';
 
 
 const BoardItemTopContainer = styled.div<{
@@ -75,19 +76,17 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                     <Avatar src={item.owner.avatar_url}/>
                 </AvatarCont>
                 <InfoCont>
-                    <LinkCont>
-                        <Link href={item.url} target="_blank">
-                            <span>{item.name}</span>
-                            /
-                            <span style={{fontWeight: 'bold'}}>{item.language}</span>
-                        </Link>
-                    </LinkCont>
+                    <ItemLinkCont
+                        login={item.owner.login}
+                        repo_name={item.name}
+                        url={item.url}
+                    />
                     <Description type={'board'}>
                         {
                             item.description
                         }
                     </Description>
-                    <ListItemDescription item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
+                    <ItemDescriptionFooter item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
                 </InfoCont>
             </Body>
         </BoardItemTopContainer>

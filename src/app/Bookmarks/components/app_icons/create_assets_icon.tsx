@@ -6,6 +6,7 @@ export type IconType = "plus" | "star" | "close" | "search"
 
 export const create_assets_icon = (type : IconType, size: IconSize, on_click?: () => void): JSX.Element => {
     return <Icon
+        className={"icon"}
         size={size}
         dangerouslySetInnerHTML={{ __html: require(`../../../../assets/${type}.svg`) }}
         onClick={() => on_click && on_click()}

@@ -27,7 +27,7 @@ const item_type_to_renderer: Record<IType, (item: Item) => JSX.Element> = {
         </DescriptionSmall>
 }
 
-export const ListItemDescription = ({ item, include}: Props): JSX.Element => {
+export const ItemDescriptionFooter = ({ item, include}: Props): JSX.Element => {
     return <FlexCont>
         {
             include.map(
