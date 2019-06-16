@@ -4,6 +4,7 @@ import { Unpacked } from './helpers/typings';
 import { upsertAllBy } from './helpers/ramda-helpers';
 import * as R from 'ramda';
 import { Board } from './typings/bookmarks_typings';
+import { take } from 'ramda';
 
 export type BookmarkState = {
     boards_settings: {
@@ -74,7 +75,7 @@ export const reducer = (state: BookmarkState = initialBookmarkState, action: Boo
                     search:
                         update(
                             {
-                                search_result: action.items,
+                                search_result: take(200, (action.items.concat(state.search.search_result))),
                                 search_query: action.query
                             },
                             state.search

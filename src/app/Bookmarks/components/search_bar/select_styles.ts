@@ -1,8 +1,10 @@
 import { CSSProperties } from 'react';
 import { Styles } from 'react-select/lib/styles';
+import { Item } from 'src/app/typings/bookmarks_typings';
+import { merge } from 'ramda';
 
 
-export const select_styles: Partial<Record<keyof Styles, () => CSSProperties>> = {
+export const select_styles: Partial<Record<keyof Styles, (base: CSSProperties, state: {options: Item[], isFocused: boolean}) => CSSProperties>> = {
     control: () => ({ border: 'none', display: "flex", fontSize: 25 }),
     container: () => ({ width: "100%" }),
     menu: () => ({
@@ -20,13 +22,15 @@ export const select_styles: Partial<Record<keyof Styles, () => CSSProperties>> =
         zIndex: 1,
         overflowY: 'hidden'
     }),
-    menuList: () => ({
-        maxHeight: 650,
-        overflowY: 'auto',
-        paddingBottom: '25px',
-        paddingTop: '0px',
-        position: 'relative',
-        boxSizing: 'border-box'
-    }),
-    option: () => ({ width: "100%", boxSizing: "border-box" })
+    menuList: (base, state) => 
+        ({
+            maxHeight: 650,
+            overflowY: 'auto',
+            paddingBottom: state.options.length > 0 ? '25px': '0px',
+            paddingTop: '0px',
+            position: 'relative',
+            boxSizing: 'border-box'
+        })
+    ,
+    option: (base, state) => merge(base, { width: "100%", boxSizing: "border-box", padding: '0px'})
 };

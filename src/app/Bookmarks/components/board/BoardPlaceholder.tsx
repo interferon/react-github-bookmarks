@@ -39,6 +39,6 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
         <BIcon
             on_click={() => props.on_board_add()}
             size='normal'
-            type="close"
+            type="plus"
         />
     </Container>;

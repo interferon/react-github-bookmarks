@@ -4,7 +4,7 @@ import { Unpacked } from "./helpers/typings";
 import { getSavedBoards, saveBoard, removeBoardById, removeBoardItem, saveAllBoards } from "./storage/db";
 import { update } from "./helpers/update";
 import { generate_board_id } from "./helpers/generateBoardId";
-import { reject } from "ramda";
+import { reject, take } from "ramda";
 import { upsertAllBy } from "./helpers/ramda-helpers";
 import { Board, Item } from "./typings/bookmarks_typings";
 import { debounce } from "./helpers/debounce";

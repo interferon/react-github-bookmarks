@@ -26,7 +26,7 @@ class App extends React.Component<AppProps> {
         }
     }
     render() {
-        const {search, boards_settings, clear_search_result, operation, search_repos} = this.props;
+        const {search, boards_settings, operation, search_repos} = this.props;
         return (
             <div>
                 <TopBar
@@ -39,8 +39,6 @@ class App extends React.Component<AppProps> {
                                     type: 'search'
                                 });
                                 search_repos(query)
-                            } else {
-                                clear_search_result(query)
                             }
                         }
                     }

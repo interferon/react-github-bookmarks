@@ -27,7 +27,7 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
                     : <BIcon size="normal" type="plus" on_click={() => on_add()} />
             }
         </FlexContSplitted>
-        <ListItemDescription item={item} include={['stargazers_count', 'issues', 'last_updated', 'issues']}/>
+        <ListItemDescription item={item} include={['license', 'last_updated', 'issues', 'stargazers_count']}/>
     </ItemCont>;
 };
 

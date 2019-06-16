@@ -104,7 +104,7 @@ export const BoardItemComponent = ({ on_item_remove, item, index, on_item_sort, 
                             item.description
                         }
                     </Description>
-                    <ListItemDescription item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
+                    <ListItemDescription item={item} include={['issues', 'last_updated', 'stargazers_count']}/>
                 </InfoCont>
             </Body>
         </Container>

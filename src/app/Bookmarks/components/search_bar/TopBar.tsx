@@ -29,9 +29,10 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                     }
                     placeholder={'Search...'}
                     cacheOptions={true}
+                    filterOption={(option, input) => option.label.includes(input)}
                     getOptionLabel={i => i.name}
                     formatOptionLabel={
-                        (option) => 
+                        (option, label_meta) => 
                             <ListItem
                                 key={option.id}
                                 item={option}
@@ -41,6 +42,7 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                     }
                     isOptionDisabled={option => is_item_added(option)}
                     defaultMenuIsOpen={false}
+                    defaultOptions={false}
                     noOptionsMessage={
                         ({inputValue}) => {
                             if(inputValue.length > 2){
@@ -52,6 +54,7 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                             return null;
                         }
                     }
+                    pageSize={1}
                     isClearable={false}
                     value={null}
                     loadingMessage={() => 'Searching repos...'}
@@ -59,7 +62,11 @@ export const TopBar = ({is_item_added, items, on_add_to_board, on_search, status
                     options={items}
                     isLoading={status === 'loading'}
                     onChange={(value: any) => { on_add_to_board(value)}}
-                    onInputChange={on_search}
+                    onInputChange={
+                        value => {
+                            items.filter(i => i.name.includes(value)).length === 0 && on_search(value)
+                        }
+                    }
                 />
             </SearchContainer>
             <Logo><span>{"Github Bookmarks"}</span></Logo>
