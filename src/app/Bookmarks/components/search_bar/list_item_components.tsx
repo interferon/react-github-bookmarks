@@ -9,7 +9,7 @@ export const ItemCont = styled.div`
     display: flex;
 `;
 export const LinkCont = styled.div`
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     display-flex;
 `;
 export const Link = styled.a`
@@ -19,7 +19,21 @@ export const FlexContSplitted = styled.div`
     align-items: center;
     justify-content: space-between;
 `;
-export const Description = styled.div`
+export const Description = styled.div<{type: "board" | "search"}>`
+    ${
+        ({type}) => {
+            switch (type) {
+                case 'search':
+                    return {
+                        "min-height": 0
+                    }
+                case 'board':
+                    return {
+                        "min-height": '75px'
+                    }
+            }
+        }
+    }
     padding: 10px;
     font-size: 12px;
 `;

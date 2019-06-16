@@ -3,12 +3,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+import '../../styles.css';
 import * as all_actions from '../actions';
 import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
 import { Message } from './components/Message';
 import { TopBar } from './components/search_bar/TopBar';
-import '../../styles.css'
 
 type OwnProps = typeof all_actions;
 
@@ -62,8 +62,8 @@ class App extends React.Component<AppProps> {
                             on_board_items_sort: (board) => this.props.sort_board_items(board, this.props.boards_settings.boards)
                         }}
                     />
-                     <Message operation={operation}/>
                 </Main>
+                <Message operation={operation}/>
             </div>
         );
     };

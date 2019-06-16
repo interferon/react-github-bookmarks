@@ -20,7 +20,7 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
             </Link>
         </LinkCont>
         <FlexContSplitted>
-           <Description> { item.description } </Description>
+           <Description type={'search'}> { item.description } </Description>
             {
                 is_checked
                     ? <BIcon size="large" type="search"/>

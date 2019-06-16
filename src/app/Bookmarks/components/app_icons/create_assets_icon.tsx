@@ -14,22 +14,23 @@ export const create_assets_icon = (type : IconType, size: Size, on_click?: () =>
 
 
 const Icon = styled.div<{size: Size}>`
-    width: 10px;
-    height: 10px;
     ${
         (props) => {
             switch (props.size) {
                 case 'small':
                     return {
-                        width: '10px', 
+                        width: '10px',
+                        height: '10px' 
                     }
                 case 'normal':
                     return {
-                        width: '20px', 
+                        width: '20px',
+                        height: '20px'  
                     }
                 case 'large':
                     return {
                         width: '30px', 
+                        height: '30px'
                     }
             }
         } 

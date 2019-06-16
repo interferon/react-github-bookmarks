@@ -3,7 +3,7 @@ import { useDrop } from 'react-dnd';
 import { BIcon } from '../app_icons/icons';
 import { swap } from '../../../helpers/ramda-helpers';
 import { update } from '../../../helpers/update';
-import { BoardItemComponent } from "./BoardItem";
+import { BoardItemComponent } from "./BoardItemComponent";
 import * as R from 'ramda';
 import styled from 'styled-components';
 import { Board, Item, DragItem } from 'src/app/typings/bookmarks_typings';
@@ -17,6 +17,7 @@ const BoardContainer = styled.div`
     width: 400px;
 `
 const ItemsListContainer = styled.ul`
+    background-color: #dddcdc;
     min-height: 50px;
     padding: 0px;
     margin: 0px;

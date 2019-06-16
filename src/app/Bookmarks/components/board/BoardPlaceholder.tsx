@@ -10,7 +10,7 @@ type BoardPlaceholderProps = {
 };
 
 const Container = styled.div`
-    width: 350px;
+    width: 400px;
     display: flex;
     align-items: center;
     height: 65px;
