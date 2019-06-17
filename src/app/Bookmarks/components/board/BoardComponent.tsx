@@ -31,7 +31,7 @@ const BoardHeader = styled.div`
 
 const BoardLabel = styled.label`
     color: #4b4b4b;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     display: block;
     width: 100%;
