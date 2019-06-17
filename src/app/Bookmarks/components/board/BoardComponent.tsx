@@ -83,7 +83,8 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
                 <BoardIcon
                     styles={{
                         position: "relative",
-                        top: "-20px"
+                        top: "-15px"
+                        
                     }}
                     on_click={() => handlers.on_board_remove(board.id)}
                     size='large'

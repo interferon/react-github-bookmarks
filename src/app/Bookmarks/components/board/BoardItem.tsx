@@ -72,6 +72,10 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                 on_click={() => on_item_remove(item.id)}
                 size='normal'
                 type="close"
+                icon_styles={{
+                    right: "5px",
+                    position: "relative"
+                }}
             />
             <Body>
                 <AvatarCont>
