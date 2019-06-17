@@ -11,7 +11,7 @@ const Header = styled.div`
     cursor: default;
 `;
 
-export const IconLeftHeader = (props: {on_click: () => void, type: IconType, size: IconSize, icon_styles?: Partial<CSSStyleDeclaration>}) => <Header>
+export const IconHeader = (props: {on_click: () => void, type: IconType, size: IconSize, icon_styles?: Partial<CSSStyleDeclaration>}) => <Header>
     <BoardIcon
         styles={props.icon_styles}
         on_click={() => props.on_click()}

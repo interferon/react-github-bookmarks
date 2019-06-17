@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { ItemDescriptionFooter } from '../search_bar/search_list_item/ItemDescriptionFooter';
 import { ItemLinkCont } from '../search_bar/search_list_item/ItemLinkCont';
 import { Description } from '../search_bar/search_list_item/list_item_components';
-import { IconLeftHeader } from './IconHeader';
+import { IconHeader } from './IconHeader';
 import { truncate } from '../../../helpers/truncate';
 
 
@@ -68,7 +68,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
             key={item.id}
             innerRef={node => add_ref(node)}
         >
-            <IconLeftHeader
+            <IconHeader
                 on_click={() => on_item_remove(item.id)}
                 size='normal'
                 type="close"
