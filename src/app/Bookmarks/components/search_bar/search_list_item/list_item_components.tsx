@@ -14,7 +14,7 @@ export const LinkCont = styled.div`
 `;
 export const Link = styled.a<{disabled: boolean}>`
     color: #136ce4;
-    font-size: 18px;
+    font-size: 16px;
     text-decoration: none;
     ${({disabled}) => disabled ? 'pointer-events: none; cursor: default;' : ''}
 `;
