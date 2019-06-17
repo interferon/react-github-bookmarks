@@ -39,7 +39,8 @@ export const Description = styled.div<{type: "board" | "search"}>`
         }
     }
     padding: 10px;
-    font-size: 14px;
+    font-size: 12px;
+    text-align: justify;
 `;
 export const DescriptionSmall = styled.span`
     display: flex;

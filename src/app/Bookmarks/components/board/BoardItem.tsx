@@ -85,7 +85,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                     />
                     <Description type={'board'}>
                         {
-                            truncate(item.description || '', 120)
+                            truncate(item.description || '', 140)
                         }
                     </Description>
                     <ItemDescriptionFooter item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
