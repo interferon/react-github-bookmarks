@@ -13,10 +13,10 @@ const Container = styled.div`
     width: 400px;
     display: flex;
     align-items: center;
-    height: 85px;
-    border: 1px gray dashed;
+    height: 70px;
+    border: 2px dashed #999;
     margin: 20px;
-    border-radius: 0px;
+    border-radius: 5px;
 `
 
 const Input = styled.input`

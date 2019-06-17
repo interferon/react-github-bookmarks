@@ -14,7 +14,7 @@ const BoardItemTopContainer = styled.div<{
 }> `
     ${
         (props) => props.is_dragging
-            ? { opacity: 0.25 }
+            ? { opacity: 0.01 }
             : { opacity: 1}
     }
 
@@ -26,6 +26,7 @@ const BoardItemTopContainer = styled.div<{
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
     background-color: white;
     margin: 2px 0px 2px 0px;
+    cursor: move;
 `;
 
 const Body = styled.div`

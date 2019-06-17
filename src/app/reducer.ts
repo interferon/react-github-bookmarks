@@ -17,7 +17,10 @@ export type BookmarkState = {
         added_items_ids:  Unpacked<Board['items']>['id'][]
     }
     operation: {
-        type: "search" | "add_new_board" | "load_boards" | "add_item_to_board" | "board_remove" | "item_remove" | "sort_board_items" | "board_change",
+        type: "search" | "add_new_board" | "load_boards" | "add_item_to_board"
+            | "board_remove" | "item_remove" | "sort_board_items" | "board_change"
+            | "change_new_board_title"
+        ,
         state: "success" | "error" | "in_progress",
         message: string
     }

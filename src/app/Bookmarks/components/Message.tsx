@@ -48,11 +48,11 @@ const msg_type_to_color: Record<BookmarkState['operation']['state'], string> = {
 export const Message = (props: { operation: BookmarkState['operation'] }): JSX.Element | null => {
     const [operation, setMsg] = useState<BookmarkState['operation'] | null>(props.operation);
 
-    useEffect(() => setMsg(props.operation), [props]);
-
-    setTimeout(
-        () => setMsg(null),
-        3000
+    useEffect(
+        () => {
+            setMsg(props.operation)
+        },
+        [props]
     );
     return operation && operation.state === 'error'
         ? <MessageCont>

@@ -31,18 +31,20 @@ export const CustomDragLayer = (props: {get_item_by_id: (id: string) => Item}) =
         isDragging,
         item
     } = useDragLayer(
-        monitor =>
-            ({
-                item: monitor.getItem(),
+        monitor => {
+            const item = monitor.getItem();
+            return ({
+                item: item ? props.get_item_by_id(item.id): null,
                 itemType: monitor.getItemType(),
                 initialOffset: monitor.getInitialSourceClientOffset(),
                 currentOffset: monitor.getSourceClientOffset(),
                 isDragging: monitor.isDragging()
             })
+        }
     );
 
 
-    if (!isDragging) {
+    if (!isDragging || item === null) {
         return null
     };
     
@@ -51,7 +53,7 @@ export const CustomDragLayer = (props: {get_item_by_id: (id: string) => Item}) =
             <BoardItem
                 add_ref={() => {}}
                 is_dragging={false}
-                item={props.get_item_by_id(item.id)}
+                item={item}
                 on_item_remove={() => {}}
             />
         </div>

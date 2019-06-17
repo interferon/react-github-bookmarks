@@ -98,7 +98,16 @@ export const change_new_board_title = (text: string): ActionReturnType =>
         dispatch({
             type: "SET_NEW_BOARD_NAME",
             text
-        })
+        });
+        dispatch(
+            createOperationStateAction(
+                {
+                    message: "",
+                    state: 'success',
+                    type: "change_new_board_title"
+                }
+            )
+        )
     };
 
 export const add_item_to_board = (item: Unpacked<Board['items']>, board: Board): ActionReturnType =>

@@ -29,11 +29,7 @@ class App extends React.Component<AppProps> {
         const {search, boards_settings, operation, search_repos} = this.props;
         return (
                 <div>
-                    {/* <CustomDragLayer
-                        get_item_by_id={
-                            (id) => chain(_ => _.items, boards_settings.boards).filter(i => i.id === id)[0] 
-                        }
-                    /> */}
+                    zz
                     <TopBar
                         on_search={
                             (query: string) => {
