@@ -8,6 +8,7 @@ const Header = styled.div`
     justify-content: flex-end;
     align-items: center;
     width: 100%;
+    cursor: default;
 `;
 
 export const IconLeftHeader = (props: {on_click: () => void, type: IconType, size: IconSize, icon_styles?: Partial<CSSStyleDeclaration>}) => <Header>
