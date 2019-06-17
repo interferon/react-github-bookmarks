@@ -1,10 +1,10 @@
 import React from 'react';
-import { BoardIcon} from '../app_icons/icons';
+import { BoardIcon} from '../../app_icons/icons';
 import { Item } from 'src/app/typings/bookmarks_typings';
 import { ItemCont, FlexContSplitted, Description } from './list_item_components';
 import { ItemDescriptionFooter } from './ItemDescriptionFooter';
 import { ItemLinkCont } from './ItemLinkCont';
-import { truncate } from '../../../helpers/truncate';
+import { truncate } from '../../../../helpers/truncate';
 
 type ListItemProps = {
     item: Item;

@@ -25,8 +25,8 @@ export const select_styles: Partial<Record<keyof Styles, (base: CSSProperties, s
     menuList: (base, state) => 
         ({
             maxHeight: 650,
-            overflowY: 'auto',
-            paddingBottom: state.options.length > 0 ? '25px': '0px',
+            overflowY: 'hidden',
+            paddingBottom: state.options.length > 0 ? '0px': '0px',
             paddingTop: '0px',
             position: 'relative',
             boxSizing: 'border-box'

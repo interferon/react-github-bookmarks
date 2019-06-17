@@ -1,5 +1,5 @@
 import React from 'react';
-import { BoardIcon } from '../app_icons/icons';
+import { BoardIcon } from '../../app_icons/icons';
 import { Item } from 'src/app/typings/bookmarks_typings';
 import TimeAgo from 'react-timeago';
 import { FlexCont, DescriptionSmall } from './list_item_components';
