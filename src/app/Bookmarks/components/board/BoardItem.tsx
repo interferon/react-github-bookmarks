@@ -14,8 +14,8 @@ const BoardItemTopContainer = styled.div<{
 }> `
     ${
         (props) => props.is_dragging
-            ? { opacity: 0 }
-            : merge({ opacity: 1}, {})
+            ? { opacity: 0.25 }
+            : { opacity: 1}
     }
 
     display: flex;

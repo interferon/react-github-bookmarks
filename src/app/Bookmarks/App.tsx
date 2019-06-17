@@ -7,8 +7,8 @@ import '../../styles.css';
 import * as all_actions from '../actions';
 import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
-import { TopBar } from './components/search_bar/TopBar';
 import { Message } from './components/Message';
+import { TopBar } from './components/search_bar/TopBar';
 
 
 type OwnProps = typeof all_actions;
@@ -29,6 +29,11 @@ class App extends React.Component<AppProps> {
         const {search, boards_settings, operation, search_repos} = this.props;
         return (
                 <div>
+                    {/* <CustomDragLayer
+                        get_item_by_id={
+                            (id) => chain(_ => _.items, boards_settings.boards).filter(i => i.id === id)[0] 
+                        }
+                    /> */}
                     <TopBar
                         on_search={
                             (query: string) => {

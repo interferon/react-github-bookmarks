@@ -8,9 +8,9 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     flex-flow: wrap;
-    width: 100%;
+    width: 95%;
     margin: 0 auto;
 `
 

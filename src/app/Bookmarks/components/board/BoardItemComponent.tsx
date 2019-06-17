@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDrag, useDrop, useDragLayer } from 'react-dnd';
 import { DragItem, Item } from 'src/app/typings/bookmarks_typings';
 import { BoardItem } from './BoardItem';
+import { getEmptyImage } from 'react-dnd-html5-backend';
 
 type BoardItemComponentProps = {
     on_item_remove: (id: string) => void,
@@ -29,7 +30,7 @@ export const BoardItemComponent = ({ on_item_remove, item, index, on_item_sort, 
     );
 
     // hook for dragging
-    const [{ isDragging }, drag] = useDrag<DragItem, any, any>(
+    const [{ isDragging }, drag, preview] = useDrag<DragItem, any, any>(
         {
             item: { id: item.id, type: 'board_item', index },
             collect: (monitor) => ({
@@ -38,10 +39,7 @@ export const BoardItemComponent = ({ on_item_remove, item, index, on_item_sort, 
         }
     );
 
-    // const { } = useDragLayer(monitor => ({
-    //     item: monitor.getItem(),
-    //     isDragging: monitor.isDragging(),
-    //   }))
+    useEffect(() => { preview(getEmptyImage(), { captureDraggingState: true })}, [])
 
     return (
         <BoardItem
