@@ -35,11 +35,11 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
             placeholder={props.placeholder}
             onChange={(e) => props.on_new_board_name_change(e.target.value)}
             onKeyDown={
-                (e) => props.new_board_name.length > 0 && e.key === 'Enter' && props.on_board_add()
+                (e) => e.key === 'Enter' && props.on_board_add()
             }
         />
         <BoardIcon
-            on_click={() => props.new_board_name.length > 0 && props.on_board_add()}
+            on_click={() => props.on_board_add()}
             size='large'
             type="plus"
         />

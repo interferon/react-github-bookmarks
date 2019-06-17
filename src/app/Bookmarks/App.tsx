@@ -7,16 +7,16 @@ import '../../styles.css';
 import * as all_actions from '../actions';
 import { BookmarkState } from '../reducer';
 import { Boards } from './components/board/Boards';
-import { Message } from './components/Message';
 import { TopBar } from './components/search_bar/TopBar';
+import { Message } from './components/Message';
+
 
 type OwnProps = typeof all_actions;
 
 type AppProps = BookmarkState & OwnProps;
 
-const Main = styled.div`
-    margin-top: 100px;
-`
+const Main = styled.div`margin-top: 100px;`;
+
 class App extends React.Component<AppProps> {
     constructor(props: AppProps){
         super(props);
@@ -24,12 +24,11 @@ class App extends React.Component<AppProps> {
             this.props.load_boards();
         }
     }
+
     render() {
         const {search, boards_settings, operation, search_repos} = this.props;
-        operation.state === 'error' && alert(operation.message)
         return (
                 <div>
-                    <Message operation={this.props.operation}/>
                     <TopBar
                         on_search={
                             (query: string) => {
@@ -65,6 +64,7 @@ class App extends React.Component<AppProps> {
                             }}
                         />
                     </Main>
+                    <Message operation={operation}/>
                 </div>
         );
     };

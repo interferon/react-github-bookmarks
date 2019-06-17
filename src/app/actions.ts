@@ -40,7 +40,7 @@ export const search_repos = (query: string): ActionReturnType =>
                         dispatch(
                             createOperationStateAction(
                                 {
-                                    message: err.message,
+                                    message: err.message.includes("API rate") ? "API rate limit exceeded" : err.message,
                                     state: "error",
                                     type: 'search'
                                 }
@@ -70,14 +70,27 @@ export const search_repos = (query: string): ActionReturnType =>
 
 export const add_new_board = (data: {title: string}): ActionReturnType => 
     (dispatch: BookmarksDispatch): void => {
-       
-        const new_board = {
-            id: generate_board_id(),
-            items: [],
-            title: data.title
-        };
+       if(data.title.length > 0) {
+            const new_board = {
+                id: generate_board_id(),
+                items: [],
+                title: data.title
+            };
 
-        saveBoard(new_board).then(saved => dispatch({ type: "ADD_NEW_BOARD", board: saved }));
+            saveBoard(new_board).then(
+                saved => dispatch({ type: "ADD_NEW_BOARD", board: saved })
+            );
+       } else {
+            dispatch(
+                createOperationStateAction(
+                    {
+                        message: "Enter board name",
+                        state: 'error',
+                        type: "add_new_board"
+                    }
+                )
+            );
+       }
     };
 
 export const change_new_board_title = (text: string): ActionReturnType =>
