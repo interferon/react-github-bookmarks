@@ -44,6 +44,7 @@ export const Description = styled.div<{type: "board" | "search"}>`
     text-align: justify;
     flex-grow: 2;
     padding: 5px 0px;
+    word-break: break-all;
 `;
 export const DescriptionSmall = styled.span<{type: "board" | "search"}>`
     ${
