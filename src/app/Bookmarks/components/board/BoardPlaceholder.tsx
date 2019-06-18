@@ -26,6 +26,7 @@ const Input = styled.input`
     border: none;
     outline: none;
     padding-left: 10px;
+    font-weight: 600;
 `
 
 export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
@@ -40,7 +41,7 @@ export const BoardPlaceholder = (props: BoardPlaceholderProps) =>
         />
         <BoardIcon
             on_click={() => props.on_board_add()}
-            size='large'
+            size='normal'
             type="plus"
         />
     </Container>;
