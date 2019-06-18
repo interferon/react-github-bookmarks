@@ -29,7 +29,6 @@ class App extends React.Component<AppProps> {
         const {search, boards_settings, operation, search_repos} = this.props;
         return (
                 <div>
-                    zz
                     <TopBar
                         on_search={
                             (query: string) => {
@@ -50,7 +49,6 @@ class App extends React.Component<AppProps> {
                             (item) => this.props.add_item_to_board(item, this.props.boards_settings.boards[0])
                         }
                     />
-                    
                     <Main>
                         <Boards
                             boards={boards_settings.boards}
