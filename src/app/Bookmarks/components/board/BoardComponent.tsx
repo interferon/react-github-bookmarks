@@ -32,7 +32,13 @@ const ItemsListContainer = styled.ul<{invisible: boolean}>`
     padding: 0px;
     margin: 0px;
 `
-const BoardHeader = styled.div`
+const BoardHeader = styled.div<{shadowed: boolean}>`
+    ${
+        ({shadowed}) =>
+            ({
+                "box-shadow": shadowed ? "3px 1px 5px 0px rgba(0, 0, 0, 0.2)": "none"
+            })
+    };
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -89,7 +95,7 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
     const invisible = board_items.length === 0;
     return (
         <BoardContainer key={board.id} className={'board'} invisible={invisible}>
-            <BoardHeader>
+            <BoardHeader shadowed={invisible}>
                 <BoardLabel>{board.title}</BoardLabel>
                 <BoardIcon
                     styles={{
