@@ -7,16 +7,27 @@ import { swap } from '../../../helpers/ramda-helpers';
 import { update } from '../../../helpers/update';
 import { BoardIcon } from '../app_icons/icons';
 import { BoardItemComponent } from "./BoardItemComponent";
+import { merge } from 'ramda';
 
-const BoardContainer = styled.div`
+const BoardContainer = styled.div<{invisible: boolean}>`
+    ${
+        ({invisible}) =>
+            ({
+                "box-shadow": invisible ? "none" : "3px 1px 5px 0px rgba(0, 0, 0, 0.2)"
+            })
+    };
     height: fit-content;
-    box-shadow: 3px 1px 5px 0px rgba(0, 0, 0, 0.2);
     margin: 20px;
     width: 260px;
     border-radius: 5px;
 `
-const ItemsListContainer = styled.ul`
-    background-color: #eeeeee;
+const ItemsListContainer = styled.ul<{invisible: boolean}>`
+    ${
+        ({invisible}) =>
+            ({
+                "background-color": invisible ? "transparent" : " #eeeeee"
+            })
+    };
     min-height: 150px;
     padding: 0px;
     margin: 0px;
@@ -75,9 +86,9 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
         const updated_items = swap(moved_item_index, atIndex, board_items);
         setBoardItems(updated_items);
     };
-
+    const invisible = board_items.length === 0;
     return (
-        <BoardContainer key={board.id} className={'board'}>
+        <BoardContainer key={board.id} className={'board'} invisible={invisible}>
             <BoardHeader>
                 <BoardLabel>{board.title}</BoardLabel>
                 <BoardIcon
@@ -91,7 +102,7 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
                     type="close"
                 />
             </BoardHeader>
-            <ItemsListContainer innerRef={drop}>
+            <ItemsListContainer innerRef={drop} invisible={invisible}>
                 {
                     board_items.map(
                         (board_item, i) =>
