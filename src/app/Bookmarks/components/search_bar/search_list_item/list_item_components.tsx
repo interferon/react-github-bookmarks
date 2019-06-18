@@ -9,12 +9,13 @@ export const ItemCont = styled.div`
     display: flex;
 `;
 export const LinkCont = styled.div`
-    padding: 0px 10px 10px 10px;
+    width: 100%;
+    padding: 0px;
     display-flex;
 `;
 export const Link = styled.a<{disabled: boolean}>`
     color: #136ce4;
-    font-size: 16px;
+    font-size: 12px;
     text-decoration: none;
     ${({disabled}) => disabled ? 'pointer-events: none; cursor: default;' : ''}
 `;
@@ -29,26 +30,42 @@ export const Description = styled.div<{type: "board" | "search"}>`
             switch (type) {
                 case 'search':
                     return {
-                        "min-height": 0
+                        fontSize: "12px"
                     }
                 case 'board':
                     return {
-                        "min-height": '75px'
+                        fontSize: "10px"
                     }
             }
         }
     }
-    padding: 10px;
-    font-size: 12px;
+    width: 100%;
+    padding: 0px;
     text-align: justify;
+    flex-grow: 2;
+    padding: 5px 0px;
 `;
-export const DescriptionSmall = styled.span`
+export const DescriptionSmall = styled.span<{type: "board" | "search"}>`
+    ${
+        ({type}) => {
+            switch (type) {
+                case 'search':
+                    return {
+                        fontSize: "10px"
+                    }
+                case 'board':
+                    return {
+                        fontSize: "7px"
+                    }
+            }
+        }
+    }
     display: flex;
     align-items: center;
     margin-right: 8px;
-    font-size: 10px;
 `;
 export const FlexCont = styled.div`
-    padding: 12px;
+    width: 100%;
+    padding: opx;
     display: flex;
 `;

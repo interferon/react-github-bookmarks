@@ -12,12 +12,12 @@ const BoardContainer = styled.div`
     height: fit-content;
     box-shadow: 3px 1px 5px 0px rgba(0, 0, 0, 0.2);
     margin: 20px;
-    width: 400px;
+    width: 260px;
     border-radius: 5px;
 `
 const ItemsListContainer = styled.ul`
     background-color: #eeeeee;
-    min-height: 200px;
+    min-height: 150px;
     padding: 0px;
     margin: 0px;
 `
@@ -31,11 +31,11 @@ const BoardHeader = styled.div`
 
 const BoardLabel = styled.label`
     color: #4b4b4b;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
     display: block;
     width: 100%;
-    padding: 20px;
+    padding: 10px;
 `
 
 type RenderBoardProps = {
@@ -83,11 +83,11 @@ export const BoardComponent = ({ handlers, board, get_board_id_for_item}: Render
                 <BoardIcon
                     styles={{
                         position: "relative",
-                        top: "-15px"
+                        top: "-10px"
                         
                     }}
                     on_click={() => handlers.on_board_remove(board.id)}
-                    size='large'
+                    size='normal'
                     type="close"
                 />
             </BoardHeader>

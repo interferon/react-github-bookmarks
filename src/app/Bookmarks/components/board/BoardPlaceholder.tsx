@@ -10,10 +10,10 @@ type BoardPlaceholderProps = {
 };
 
 const Container = styled.div`
-    width: 400px;
+    width: 260px;
     display: flex;
     align-items: center;
-    height: 70px;
+    height: 50px;
     border: 2px dashed #999;
     margin: 20px;
     border-radius: 5px;
@@ -21,7 +21,7 @@ const Container = styled.div`
 
 const Input = styled.input`
     background-color: #f5f7fa;
-    font-size : 25px;
+    font-size : 14px;
     width: 100%;
     border: none;
     outline: none;

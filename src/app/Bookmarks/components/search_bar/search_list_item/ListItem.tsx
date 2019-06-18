@@ -28,7 +28,7 @@ export const ListItem = ({is_checked, item, on_add} : ListItemProps): JSX.Elemen
                     : <BoardIcon size="large" type="plus" on_click={() => on_add()} />
             }
         </FlexContSplitted>
-        <ItemDescriptionFooter item={item} include={['license', 'last_updated', 'issues', 'stargazers_count']}/>
+        <ItemDescriptionFooter item={item} include={['last_updated', 'issues', 'stargazers_count', 'license']} elem_type={'search'}/>
     </ItemCont>;
 };
 

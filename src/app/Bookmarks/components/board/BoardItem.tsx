@@ -22,7 +22,7 @@ const BoardItemTopContainer = styled.div<{
     justify-content: space-between;
     flex-direction: column;
     align-items: center;
-    height: 200px;
+    height: 150px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
     background-color: white;
     margin: 2px 0px 2px 0px;
@@ -32,24 +32,28 @@ const BoardItemTopContainer = styled.div<{
 const Body = styled.div`
     display: flex;
     width: 100%;
-    padding: 0px 15px 15px 15px;
+    padding: 0px 10px 10px 10px;
     height: inherit;
 `;
 
 const InfoCont = styled.div`
+    margin-left: 5px;
     display: flex;
     flex-direction: column;
     width: 100%;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-content: center;
 `;
 
 const Avatar = styled.img`
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 50px;
 `;
 
 const AvatarCont = styled.div`
-    width: 25%;
+    width: 20%;
     display: flex;
     justify-content: center;
 `;
@@ -70,10 +74,11 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
         >
             <IconHeader
                 on_click={() => on_item_remove(item.id)}
-                size='normal'
+                size='small'
                 type="close"
                 icon_styles={{
-                    right: "5px",
+                    right: "3px",
+                    top: "3px",
                     position: "relative"
                 }}
             />
@@ -92,7 +97,7 @@ export const BoardItem = ({item, on_item_remove, is_dragging, add_ref}: BoardIte
                             truncate(item.description || '', 140)
                         }
                     </Description>
-                    <ItemDescriptionFooter item={item} include={['stargazers_count', 'issues', 'last_updated']}/>
+                    <ItemDescriptionFooter item={item} include={['stargazers_count', 'issues', 'last_updated']} elem_type={'board'}/>
                 </InfoCont>
             </Body>
         </BoardItemTopContainer>

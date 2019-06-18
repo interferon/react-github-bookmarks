@@ -50,7 +50,7 @@ export const TopBar = (props: SearchBarProps): JSX.Element => {
     return (
         <Bar>
             <SearchContainer>
-                <BoardIcon size="large" type="search"/>
+                <BoardIcon size="normal" type="search"/>
                 <DropDown
                     is_item_added={props.is_item_added}
                     items={props.items}

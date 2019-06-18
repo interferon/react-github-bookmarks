@@ -5,7 +5,7 @@ import { merge } from 'ramda';
 
 
 export const select_styles: Partial<Record<keyof Styles, (base: CSSProperties, state: {options: Item[], isFocused: boolean}) => CSSProperties>> = {
-    control: () => ({ border: 'none', display: "flex", fontSize: 25 }),
+    control: () => ({ border: 'none', display: "flex", fontSize: 16 }),
     container: () => ({ width: "100%" }),
     menu: () => ({
         boxShadow: "0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12)",
