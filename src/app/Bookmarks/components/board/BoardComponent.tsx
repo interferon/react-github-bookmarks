@@ -19,7 +19,7 @@ const BoardContainer = styled.div<{invisible: boolean}>`
     height: fit-content;
     margin: 20px;
     width: 260px;
-    border-radius: 5px;
+    border-radius: 3px;
 `
 const ItemsListContainer = styled.ul<{invisible: boolean}>`
     ${
@@ -43,7 +43,7 @@ const BoardHeader = styled.div<{shadowed: boolean}>`
     justify-content: space-between;
     align-items: center;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 3px;
 `;
 
 const BoardLabel = styled.label`
